@@ -13,35 +13,14 @@ Typst templates for student theses and task descriptions at the
 
 ## Getting Started
 
-### Prerequisites
+### Option 1: Typst Web App (recommended)
 
-Install the [Typst CLI](https://github.com/typst/typst):
-
-```sh
-# macOS
-brew install typst
-
-# or via cargo
-cargo install typst-cli
-```
-
-### Thesis
-
-Copy `examples/thesis.typ` and `examples/acronyms.typ` to your project and
-adapt them:
-
-```sh
-typst compile --root . your_thesis.typ
-```
-
-The `--root .` flag is required so that absolute imports like
-`#import "/templates/thesis.typ": *` resolve from the repository root.
-
-A minimal thesis file looks like this:
+1. Go to [typst.app](https://typst.app) and create a project.
+2. Upload this repository (or just the `templates/` directory) to the project.
+3. Create a new `.typ` file at the project root and import the template:
 
 ```typ
-#import "/templates/thesis.typ": *
-#import "acronyms.typ": acronyms
+#import "templates/thesis.typ": *
 
 #show: thesis.with(
   title: "My Thesis Title",
@@ -50,12 +29,10 @@ A minimal thesis file looks like this:
   reporttype: "Master Thesis",
   advisors: (
     (name: "Dr. Alice Smith", mail: "asmith@iis.ee.ethz.ch"),
-    (name: "Bob Jones",       mail: "bjones@iis.ee.ethz.ch"),
   ),
   professors: (
     (name: "Prof. Dr. Carol Miller", mail: "cmiller@iis.ee.ethz.ch"),
   ),
-  acronyms: acronyms,
   bibliography: bibliography("references.bib", style: "ieee", full: true),
 )
 
@@ -64,8 +41,29 @@ A minimal thesis file looks like this:
 Your thesis starts here.
 ```
 
+The web app compiles and previews the PDF live in the browser — no local
+installation needed.
+
+### Option 2: Local Development
+
+Install the Typst compiler ([installation instructions](https://github.com/typst/typst#installation)), then compile from the repository root:
+
+```sh
+typst compile your_thesis.typ
+```
+
 Missing fields show a highlighted placeholder clue in the compiled PDF rather
-than an error, so you can compile at any stage of writing.
+than an error, so you can compile at any stage of writing. See
+`examples/thesis.typ` for a full working example.
+
+> [!NOTE]
+> The `examples/` directory contains working examples that can be compiled
+> directly from the repository root:
+> ```sh
+> typst compile --root . examples/thesis.typ
+> ```
+> The `--root .` flag is required because the examples import from the parent
+> directory.
 
 ## Acronyms
 
@@ -89,7 +87,7 @@ Use `include-pdf` (re-exported from the template) to embed scanned documents
 such as the signed declaration of originality:
 
 ```typ
-declaration-of-originality: include-pdf("/figures/declaration.pdf"),
+declaration-of-originality: include-pdf("figures/declaration.pdf"),
 ```
 
 ## For Advisors and PhD Students
