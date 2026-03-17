@@ -7,6 +7,7 @@
 #import "../templates/thesis.typ": *
 #import "acronyms.typ": acronyms
 #import "@preview/cetz:0.4.2": canvas, draw
+#import "@preview/finite:0.5.1": automaton
 
 #show: thesis.with(
   title: "A Comprehensive Study of Integrated Systems",
@@ -31,7 +32,10 @@
     implementation, and verification. Our results demonstrate significant improvements over
     the state of the art in terms of performance and energy efficiency.
   ],
-  logo: image("../templates/figures/eth_logo_kurz_pos.svg", width: 60%),
+  logo: automaton(
+    (q0: (q1: ""), q1: (q2: ""), q2: (q3: ""), q3: none),
+    labels: (q0: "L", q1: "O", q2: "G", q3: "O",),
+  ),
   acronyms: acronyms,
   bibliography: bibliography("references.bib", style: "ieee", full: true),
 )
