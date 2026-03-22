@@ -1,0 +1,16 @@
+[package]
+name = "ethz-iis-research-plan"
+version = "0.1.0"
+entrypoint = "lib.typ"
+compiler = "0.12.0"
+authors = ["Tim Fischer <fischeti@iis.ee.ethz.ch>"]
+license = "Apache-2.0"
+description = "ETH Zurich IIS PhD research plan template"
+repository = "https://github.com/pulp-platform/iis-typst"
+keywords = ["research plan", "ETH Zurich", "IIS", "PhD"]
+categories = ["paper"]
+
+[template]
+path = "template"
+entrypoint = "main.typ"
+thumbnail = "template/thumbnail.png"

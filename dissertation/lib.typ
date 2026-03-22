@@ -6,7 +6,7 @@
 //
 // ETH Zurich IIS PhD Thesis Template for Typst
 
-#import "utils.typ": fieldpar, pulp-colors, include-pdf, placeholder
+#import "shared/utils.typ": fieldpar, pulp-colors, include-pdf, placeholder
 #import "@preview/acrostiche:0.7.0": init-acronyms, print-index, acr, acrpl, acrfull, reset-acronym, reset-all-acronyms
 #import "@preview/gentle-clues:1.3.1": task
 

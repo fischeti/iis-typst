@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0, see LICENSE for details.
 // SPDX-License-Identifier: Apache-2.0
 
-#import "../../../templates/dissertation.typ": acr, acrpl, acrfull, chapter-short
+#import "@preview/ethz-iis-dissertation:0.1.0": acr, acrpl, acrfull, chapter-short
 
 // Optional: override the running header with a shorter title.
 // Useful when the full chapter title is too long to fit on one line.

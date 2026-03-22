@@ -6,7 +6,7 @@
 //
 // An IIS Research Plan Template for Typst
 
-#import "utils.typ": fieldpar, eth-header
+#import "shared/utils.typ": fieldpar, eth-header, pulp-colors
 
 /// The IIS Research Plan template for PhD candidates.
 #let research-plan(

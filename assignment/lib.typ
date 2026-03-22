@@ -7,7 +7,7 @@
 // An IIS Assignment Template for Typst
 
 #import "assignment_appendix.typ": assignment_appendix
-#import "utils.typ": fieldpar, current-semester, eth-header
+#import "shared/utils.typ": fieldpar, current-semester, eth-header
 
 // The possible thesis types
 #let thesis_types = ("group", "semester", "bachelor", "master")

@@ -1,0 +1,16 @@
+[package]
+name = "ethz-iis-thesis"
+version = "0.1.0"
+entrypoint = "lib.typ"
+compiler = "0.12.0"
+authors = ["Tim Fischer <fischeti@iis.ee.ethz.ch>"]
+license = "Apache-2.0"
+description = "ETH Zurich IIS thesis/semester project report template"
+repository = "https://github.com/pulp-platform/iis-typst"
+keywords = ["thesis", "ETH Zurich", "IIS", "report"]
+categories = ["paper"]
+
+[template]
+path = "template"
+entrypoint = "main.typ"
+thumbnail = "template/thumbnail.png"

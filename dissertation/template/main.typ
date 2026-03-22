@@ -4,11 +4,11 @@
 //
 // Author: Tim Fischer <fischeti@iis.ee.ethz.ch>
 //
-// PhD Thesis example — compile from the iis-typst/ root with:
-//   typst compile --root . examples/dissertation/main.typ
+// PhD Thesis example — compile with:
+//   typst compile main.typ
 
-#import "../../templates/dissertation.typ": dissertation
-#import "@preview/acrostiche:0.7.0": acr, acrpl, acrfull
+#import "@preview/ethz-iis-dissertation:0.1.0": dissertation
+#import "@preview/ethz-iis-dissertation:0.1.0": acr, acrpl, acrfull
 #import "acronyms.typ": acronyms
 
 #show: dissertation.with(
