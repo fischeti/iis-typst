@@ -1,0 +1,11 @@
+[package]
+name = "iis-typst"
+version = "0.1.0"
+entrypoint = "lib.typ"
+authors = ["Tim Fischer <fischeti@iis.ee.ethz.ch>"]
+license = "Apache-2.0"
+description = "ETH Zurich IIS document templates"
+
+[template]
+path = "examples/dissertation"
+entrypoint = "dissertation.typ"

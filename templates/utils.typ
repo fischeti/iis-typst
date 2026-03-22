@@ -32,10 +32,10 @@
 /// Render a task clue with a title, optional description content, and a
 /// syntax-highlighted Typst code snippet. Intended for use in the `else` branch
 /// of a `if param != none { param } else { placeholder(...) }` pattern.
-#let placeholder(title: "", description: none, snippet: "") = {
+#let placeholder(title: "", description: none, snippet: "", template: "thesis") = {
   task(title: title)[
     #if description != none { description }
-    #code[#raw(lang: "typc", block: true, "#show: thesis.with(\n  " + snippet + "\n  // ...\n)")]
+    #code[#raw(lang: "typc", block: true, "#show: " + template + ".with(\n  " + snippet + "\n  // ...\n)")]
   ]
 }
 
