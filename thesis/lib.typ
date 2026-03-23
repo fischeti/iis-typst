@@ -50,7 +50,9 @@
   /// Additional appendices. Array of (title: "...", body: [...]) dicts, rendered
   /// before the assignment description and declaration of originality.
   /// Defaults to the Typst Quick Guide; pass your own array to replace it.
-  appendices: ((title: "Typst Quick Guide", body: include "typst-guide.typ"),),
+  appendices: (
+    (title: "Typst Quick Guide", body: include "shared/typst-guide.typ"),
+  ),
   /// The bibliography, rendered in the backmatter. Pass a bibliography() object.
   bibliography: none,
   /// The actual body of the thesis
