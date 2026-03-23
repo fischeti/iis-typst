@@ -2,13 +2,13 @@
 name = "ethz-iis-dissertation"
 version = "0.1.0"
 entrypoint = "lib.typ"
-compiler = "0.12.0"
+compiler = "0.14.2"
 authors = ["Tim Fischer <fischeti@iis.ee.ethz.ch>"]
 license = "Apache-2.0"
 description = "ETH Zurich IIS PhD dissertation template"
 repository = "https://github.com/pulp-platform/iis-typst"
 keywords = ["thesis", "ETH Zurich", "IIS", "dissertation"]
-categories = ["paper"]
+categories = ["thesis"]
 
 [template]
 path = "template"
