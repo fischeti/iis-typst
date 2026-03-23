@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+
+  lint-license:
+    runs-on: ubuntu-latest
+    steps:
+      - name: lint license
+        uses: pulp-platform/pulp-actions/lint-license@v2.4.5
+        with:
+          license: |
+            Copyright (\d{4}(-\d{4})?\s)?(ETH Zurich and University of Bologna).
+            (Licensed under the Apache License, Version 2.0), see LICENSE for details.
+            SPDX-License-Identifier: (Apache-2.0)
+
+  compile:
+    name: Compile (${{ matrix.package }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        package: [dissertation, thesis, research-plan, assignment]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: typst-community/setup-typst@v4
+
+      - name: Compile template
+        run: typst compile --package-path packages ${{ matrix.package }}/template/main.typ
+
+  format:
+    name: Format check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: typstyle-rs/typstyle-action@main
+        with:
+          opts: --check
+          inputs: "**/*.typ"
