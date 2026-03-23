@@ -1,0 +1,16 @@
+version = 1
+
+[[annotations]]
+path = [
+  "**/*.png",
+  "**/*.svg",
+  "**/*.bib",
+  "**/*.toml",
+  "**/*.md",
+  "**/*.pdf",
+  "LICENSE",
+  "*/LICENSE",
+  ".gitignore",
+]
+SPDX-FileCopyrightText = "2026 ETH Zurich and University of Bologna"
+SPDX-License-Identifier = "Apache-2.0"

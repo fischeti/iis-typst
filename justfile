@@ -53,8 +53,9 @@ init pkg dir="pkg":
 bump pkg level="patch":
     python3 scripts/bump.py {{pkg}} {{level}}
 
-# Prepare a package for submission to Typst Universe (replaces shared/ symlink with real copy)
+# Prepare a package for submission to Typst Universe (replaces shared/ symlink with real copy, adds LICENSE)
 prepare pkg:
     rm {{pkg}}/shared
     cp -r shared {{pkg}}/shared
+    cp LICENSES/Apache-2.0.txt {{pkg}}/LICENSE
     @echo "{{pkg}}/ is ready — submit as packages/preview/ethz-iis-{{pkg}}/0.1.0/"

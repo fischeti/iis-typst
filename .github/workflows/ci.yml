@@ -13,16 +13,11 @@ on:
 
 jobs:
 
-  lint-license:
+  reuse:
     runs-on: ubuntu-latest
     steps:
-      - name: lint license
-        uses: pulp-platform/pulp-actions/lint-license@v2.4.5
-        with:
-          license: |
-            Copyright (\d{4}(-\d{4})?\s)?(ETH Zurich and University of Bologna).
-            (Licensed under the Apache License, Version 2.0), see LICENSE for details.
-            SPDX-License-Identifier: (Apache-2.0)
+      - uses: actions/checkout@v4
+      - uses: fsfe/reuse-action@v4
 
   compile:
     name: Compile (${{ matrix.package }})
