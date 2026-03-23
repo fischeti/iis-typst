@@ -17,9 +17,9 @@
   == Weekly Reports
 
   #if projecttype == "master" [
-  The student is required to a write a weekly report at the end of each week and to send it to his advisors by email.
+    The student is required to a write a weekly report at the end of each week and to send it to his advisors by email.
   ] else [
-  The student is advised, but not required, to a write a weekly report at the end of each week and to send it to his advisors.
+    The student is advised, but not required, to a write a weekly report at the end of each week and to send it to his advisors.
   ]
   The idea of the weekly report is to briefly summarize the work, progress and any findings made during the week, to plan the actions for the next week, and to discuss open questions and points.
   The weekly report is also an important means for the student to get a goal-oriented attitude to work.

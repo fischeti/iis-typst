@@ -6,28 +6,28 @@
 
 #import "@preview/ethz-iis-research-plan:0.1.0": *
 #import "@preview/ethz-iis-research-plan:0.1.0": pulp-colors
-#import "@preview/acrostiche:0.7.0": init-acronyms, acr, acrpl
+#import "@preview/acrostiche:0.7.0": acr, acrpl, init-acronyms
 #import "@preview/cetz:0.4.2"
 #import "@preview/cetz-plot:0.1.3": plot as cplot
 
 // Define acronyms locally — no need to pass them to the template.
 #init-acronyms((
-  "NoC":  ("Network-on-Chip",),
-  "3D":   ("Three-Dimensional",),
-  "2D":   ("Two-Dimensional",),
-  "D2D":  ("Die-to-Die",),
-  "SoC":  ("System-on-Chip",),
-  "HB":   ("Hybrid Bonding",),
-  "WP":   ("Work Package",),
+  "NoC": ("Network-on-Chip",),
+  "3D": ("Three-Dimensional",),
+  "2D": ("Two-Dimensional",),
+  "D2D": ("Die-to-Die",),
+  "SoC": ("System-on-Chip",),
+  "HB": ("Hybrid Bonding",),
+  "WP": ("Work Package",),
 ))
 
 #show: research-plan.with(
   title: "3D Network-on-Chip Architectures for Scalable Many-Core Systems",
   author: "Jane Doe",
   email: "jdoe@iis.ee.ethz.ch",
-  chair:        (name: "Prof. Dr. Carol White",  mail: "cwhite@iis.ee.ethz.ch"),
-  supervisor:   (name: "Prof. Dr. Alice Miller", mail: "amiller@iis.ee.ethz.ch"),
-  cosupervisor: (name: "Dr. Bob Smith",          mail: "bsmith@iis.ee.ethz.ch"),
+  chair: (name: "Prof. Dr. Carol White", mail: "cwhite@iis.ee.ethz.ch"),
+  supervisor: (name: "Prof. Dr. Alice Miller", mail: "amiller@iis.ee.ethz.ch"),
+  cosupervisor: (name: "Dr. Bob Smith", mail: "bsmith@iis.ee.ethz.ch"),
   bibliography: bibliography("references.bib", style: "ieee"),
 )
 
@@ -42,7 +42,7 @@ illustrated in @noc-scaling. This
 plan outlines the motivation, open problems, and planned contributions of a doctoral thesis
 on #acrpl("NoC") for #acr("3D")-integrated systems.
 
-#let n-max   = 512.0
+#let n-max = 512.0
 #let cbrt(x) = calc.pow(float(x), 1.0 / 3.0)
 
 #figure(
@@ -51,8 +51,9 @@ on #acrpl("NoC") for #acr("3D")-integrated systems.
       size: (9, 6),
       axis-style: "scientific",
       x-label: [Nodes $N$],
-      x-min: 0, x-max: n-max,
-      y-label:  [Avg. hop count],
+      x-min: 0,
+      x-max: n-max,
+      y-label: [Avg. hop count],
       y-min: 0,
       y2-label: [Norm. bandwidth],
       y2-min: 0,
@@ -62,13 +63,19 @@ on #acrpl("NoC") for #acr("3D")-integrated systems.
           domain: (4, n-max),
           x => 2.0 / 3.0 * calc.sqrt(float(x)),
           label: [Hops 2D ($∝ N^(1\/2)$)],
-          style: (stroke: (paint: pulp-colors.blue.base,   thickness: 1.5pt)),
+          style: (stroke: (paint: pulp-colors.blue.base, thickness: 1.5pt)),
         )
         cplot.add(
           domain: (4, n-max),
           x => cbrt(x),
           label: [Hops 3D ($∝ N^(1\/3)$)],
-          style: (stroke: (paint: pulp-colors.blue.light,  thickness: 1.5pt, dash: "dashed")),
+          style: (
+            stroke: (
+              paint: pulp-colors.blue.light,
+              thickness: 1.5pt,
+              dash: "dashed",
+            ),
+          ),
         )
         cplot.add(
           axes: ("x", "y2"),
@@ -82,9 +89,15 @@ on #acrpl("NoC") for #acr("3D")-integrated systems.
           domain: (4, n-max),
           x => calc.pow(float(x) / 4.0, 2.0 / 3.0),
           label: [BW 3D ($∝ N^(2\/3)$)],
-          style: (stroke: (paint: pulp-colors.orange.light, thickness: 1.5pt, dash: "dashed")),
+          style: (
+            stroke: (
+              paint: pulp-colors.orange.light,
+              thickness: 1.5pt,
+              dash: "dashed",
+            ),
+          ),
         )
-      }
+      },
     )
   }),
   caption: [
@@ -149,7 +162,10 @@ quadratic bandwidth-scaling prediction on silicon or a detailed physical model.
 
 // Fixed-width box forces left alignment in timeliney's centered cetz content anchor.
 // justify: false prevents the template's set par(justify: true) from affecting labels.
-#let t(label) = box(width: 5cm, {set par(justify: false); align(left)[#label]})
+#let t(label) = box(width: 5cm, {
+  set par(justify: false)
+  align(left)[#label]
+})
 
 
 #let mk-style(c) = (stroke: 6pt + c)
@@ -158,8 +174,8 @@ quadratic bandwidth-scaling prediction on silicon or a detailed physical model.
 #let now = {
   let today = datetime(year: 2027, month: 1, day: 1) // you can also use `datetime.today()`
   let year-offset = today.year() - 2026
-  let quarter     = calc.floor((today.month() - 1) / 3)
-  let month-frac  = calc.rem(today.month() - 1, 3) / 3
+  let quarter = calc.floor((today.month() - 1) / 3)
+  let month-frac = calc.rem(today.month() - 1, 3) / 3
   float(year-offset * 4 + quarter) + month-frac
 }
 
@@ -169,7 +185,12 @@ quadratic bandwidth-scaling prediction on silicon or a detailed physical model.
     {
       import timeliney: *
 
-      headerline(group(([*2026*], 4)), group(([*2027*], 4)), group(([*2028*], 4)), group(([*2029*], 4)))
+      headerline(
+        group(([*2026*], 4)),
+        group(([*2027*], 4)),
+        group(([*2028*], 4)),
+        group(([*2029*], 4)),
+      )
       headerline(
         group(..range(4).map(n => sub("Q" + str(n + 1)))),
         group(..range(4).map(n => sub("Q" + str(n + 1)))),
@@ -177,32 +198,70 @@ quadratic bandwidth-scaling prediction on silicon or a detailed physical model.
         group(..range(4).map(n => sub("Q" + str(n + 1)))),
       )
 
-      taskgroup(title: t[*Completed Work*], style: mk-style(pulp-colors.gray.base), {
-        task(t[2D NoC tapeout contribution], (0, 2),  style: mk-style(pulp-colors.gray.light))
-        task(t[Extensions & exploration],   (2, 4),  style: mk-style(pulp-colors.gray.very-light))
-      })
+      taskgroup(
+        title: t[*Completed Work*],
+        style: mk-style(pulp-colors.gray.base),
+        {
+          task(t[2D NoC tapeout contribution], (0, 2), style: mk-style(
+            pulp-colors.gray.light,
+          ))
+          task(t[Extensions & exploration], (2, 4), style: mk-style(
+            pulp-colors.gray.very-light,
+          ))
+        },
+      )
 
-      taskgroup(title: t[*WP1: 3D Router*], style: mk-style(pulp-colors.blue.base), {
-        task(t[Vertical port design],       (4, 7),  style: mk-style(pulp-colors.blue.light))
-        task(t[HB link characterization],   (6, 9),  style: mk-style(pulp-colors.blue.very-light))
-      })
+      taskgroup(
+        title: t[*WP1: 3D Router*],
+        style: mk-style(pulp-colors.blue.base),
+        {
+          task(t[Vertical port design], (4, 7), style: mk-style(
+            pulp-colors.blue.light,
+          ))
+          task(t[HB link characterization], (6, 9), style: mk-style(
+            pulp-colors.blue.very-light,
+          ))
+        },
+      )
 
-      taskgroup(title: t[*WP2: Topology & Routing*], style: mk-style(pulp-colors.green.base), {
-        task(t[3D routing algorithms],      (8, 11), style: mk-style(pulp-colors.green.light))
-        task(t[Scalability analysis],       (10, 13), style: mk-style(pulp-colors.green.very-light))
-      })
+      taskgroup(
+        title: t[*WP2: Topology & Routing*],
+        style: mk-style(pulp-colors.green.base),
+        {
+          task(t[3D routing algorithms], (8, 11), style: mk-style(
+            pulp-colors.green.light,
+          ))
+          task(t[Scalability analysis], (10, 13), style: mk-style(
+            pulp-colors.green.very-light,
+          ))
+        },
+      )
 
-      taskgroup(title: t[*WP3: Physical Integration*], style: mk-style(pulp-colors.orange.base), {
-        task(t[Multi-die SoC prototype],    (12, 15), style: mk-style(pulp-colors.orange.light))
-        task(t[Writing and defense],        (14, 16), style: mk-style(pulp-colors.orange.very-light))
-      })
+      taskgroup(
+        title: t[*WP3: Physical Integration*],
+        style: mk-style(pulp-colors.orange.base),
+        {
+          task(t[Multi-die SoC prototype], (12, 15), style: mk-style(
+            pulp-colors.orange.light,
+          ))
+          task(t[Writing and defense], (14, 16), style: mk-style(
+            pulp-colors.orange.very-light,
+          ))
+        },
+      )
 
       milestone(
         at: now,
-        style: (stroke: (dash: "dashed", paint: pulp-colors.gray.base, thickness: 1.5pt)),
+        style: (
+          stroke: (
+            dash: "dashed",
+            paint: pulp-colors.gray.base,
+            thickness: 1.5pt,
+          ),
+        ),
         align(center, text(size: 12pt, weight: "bold")[Now]),
       )
-    }
+    },
   ),
   caption: [Tentative timeline aligned with the work packages.],
 )
@@ -221,6 +280,6 @@ are planned:
 I hereby confirm that I am the sole author of the written work enclosed and that I have
 compiled it in my own words. Parts excepted are corrections of form and content by the
 supervisor. I disclose the use of generative AI tools#footnote[The following generative AI
-tools were used in the preparation of this work: ChatGPT (language editing and
-brainstorming), Grammarly (grammar and syntax checking). All AI-generated content was critically reviewed and
-revised by the author.] in the preparation of this work.
+  tools were used in the preparation of this work: ChatGPT (language editing and
+  brainstorming), Grammarly (grammar and syntax checking). All AI-generated content was critically reviewed and
+  revised by the author.] in the preparation of this work.

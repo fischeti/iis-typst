@@ -19,19 +19,23 @@
 
 #let acronyms = (
   // Simple acronyms (acrostiche appends "s" for the plural form)
-  "IC":   ("Integrated Circuit",),
-  "IIS":  ("Integrated Systems Laboratory",),
-  "RTL":  ("Register-Transfer Level",),
+  "IC": ("Integrated Circuit",),
+  "IIS": ("Integrated Systems Laboratory",),
+  "RTL": ("Register-Transfer Level",),
   "ASIC": ("Application-Specific Integrated Circuit",),
   "FPGA": ("Field-Programmable Gate Array",),
 
   // Advanced acronyms with explicit plural forms
   "HDL": (
-    short: "HDL", long: "Hardware Description Language",
-    short-pl: "HDLs", long-pl: "Hardware Description Languages",
+    short: "HDL",
+    long: "Hardware Description Language",
+    short-pl: "HDLs",
+    long-pl: "Hardware Description Languages",
   ),
   "SoC": (
-    short: "SoC", long: "System-on-Chip",
-    short-pl: "SoCs", long-pl: "Systems-on-Chip",
+    short: "SoC",
+    long: "System-on-Chip",
+    short-pl: "SoCs",
+    long-pl: "Systems-on-Chip",
   ),
 )

@@ -7,7 +7,7 @@
 // An IIS Assignment Template for Typst
 
 #import "appendix.typ": appendix
-#import "shared/utils.typ": fieldpar, current-semester, eth-header
+#import "shared/utils.typ": current-semester, eth-header, fieldpar
 
 // The possible thesis types
 #let thesis-types = ("group", "semester", "bachelor", "master")
@@ -16,11 +16,11 @@
 // Note: duration does not accept months, and master thesis
 // is calculated as 6 x 4 weeks
 #let thesis-duration(projecttype) = {
-    if lower(projecttype) == "master" {
-        duration(weeks: 24)
-    } else {
-        duration(weeks: 14)
-    }
+  if lower(projecttype) == "master" {
+    duration(weeks: 24)
+  } else {
+    duration(weeks: 14)
+  }
 }
 
 // The actual assignment template
@@ -49,14 +49,18 @@
   body,
 ) = {
   // Resolve missing parameters
-  let title    = if title    != none { title }    else { fieldpar[title] }
-  let student  = if student  != none { student }  else { fieldpar[student name] }
-  let advisors = if advisors != none { advisors } else { ((name: fieldpar[Advisor], office: "", mail: ""),) }
-  if professors == none { professors =  ((name: fieldpar[Professor], office: "", mail: ""),) }
+  let title = if title != none { title } else { fieldpar[title] }
+  let student = if student != none { student } else { fieldpar[student name] }
+  let advisors = if advisors != none { advisors } else {
+    ((name: fieldpar[Advisor], office: "", mail: ""),)
+  }
+  if professors == none {
+    professors = ((name: fieldpar[Professor], office: "", mail: ""),)
+  }
 
   // Validate that project type is valid...
   if projecttype != none {
-      assert(projecttype in thesis-types)
+    assert(projecttype in thesis-types)
   }
   // ... or notify user
   if projecttype == none {
@@ -114,14 +118,23 @@
       align(center, text(size: 24pt, weight: "bold", title))
       v(3em)
       // The current date
-      align(center, text(size: 12pt, datetime.today().display("[month repr:long] [day], [year]")))
+      align(center, text(
+        size: 12pt,
+        datetime.today().display("[month repr:long] [day], [year]"),
+      ))
       v(1fr)
 
       // List all the advisors
       [Advisors:]
 
       for advisor in advisors [
-        #let adv-content = advisor.name + ", " + advisor.office + ", " + link("mailto:" + advisor.mail)[#raw(advisor.mail)]
+        #let adv-content = (
+          advisor.name
+            + ", "
+            + advisor.office
+            + ", "
+            + link("mailto:" + advisor.mail)[#raw(advisor.mail)]
+        )
         - #adv-content
       ]
 
@@ -143,7 +156,7 @@
         The final report is to be submitted electronically.
         All copies remain property of the Integrated Systems Laboratory.
       ]
-    }
+    },
   )
 
   // The actual body of the assignment
@@ -168,6 +181,6 @@
     [Zurich, #datetime.today().display("[month repr:long] [day], [year]")],
     for professor in professors {
       professor.name
-    }
+    },
   )
 }

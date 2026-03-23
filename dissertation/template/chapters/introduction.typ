@@ -2,7 +2,9 @@
 // Licensed under the Apache License, Version 2.0, see LICENSE for details.
 // SPDX-License-Identifier: Apache-2.0
 
-#import "@preview/ethz-iis-dissertation:0.1.0": acr, acrpl, acrfull, chapter-short
+#import "@preview/ethz-iis-dissertation:0.1.0": (
+  acr, acrfull, acrpl, chapter-short,
+)
 
 // Optional: override the running header with a shorter title.
 // Useful when the full chapter title is too long to fit on one line.
@@ -73,8 +75,8 @@ The remainder of this thesis is organized as follows.
     table.hline(stroke: 1.5pt),
     table.header([*Chapter*], [*Content*]),
     table.hline(stroke: 0.75pt),
-    [@chp:background],   [Background on interconnects and related work],
-    [@chp:conclusion],   [Conclusions and future work],
+    [@chp:background], [Background on interconnects and related work],
+    [@chp:conclusion], [Conclusions and future work],
     table.hline(stroke: 1.5pt),
   ),
   caption: [Overview of the thesis structure.],

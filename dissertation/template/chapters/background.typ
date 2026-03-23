@@ -2,7 +2,9 @@
 // Licensed under the Apache License, Version 2.0, see LICENSE for details.
 // SPDX-License-Identifier: Apache-2.0
 
-#import "@preview/ethz-iis-dissertation:0.1.0": acr, acrpl, acrfull, chapter-short
+#import "@preview/ethz-iis-dissertation:0.1.0": (
+  acr, acrfull, acrpl, chapter-short,
+)
 
 // #chapter-short.update("Background")
 
@@ -81,12 +83,14 @@ and extends its micro-architecture to support multi-stream parallel transfers.
     align: (left, center, center, center),
     stroke: none,
     table.hline(stroke: 1.5pt),
-    table.header([*Work*], [*BW (Gb/s/link)*], [*Energy (pJ/B)*], [*Technology*]),
+    table.header(
+      [*Work*], [*BW (Gb/s/link)*], [*Energy (pJ/B)*], [*Technology*]
+    ),
     table.hline(stroke: 0.75pt),
-    [Prior A],    [128],   [0.48], [28 nm],
-    [Prior B],    [256],   [0.31], [22 nm],
+    [Prior A], [128], [0.48], [28 nm],
+    [Prior B], [256], [0.31], [22 nm],
     [FlooNoC @fischer2025floonoc], [645], [0.15], [22 nm],
-    [*This work*],[*1280*],[*0.09*],[*22 nm*],
+    [*This work*], [*1280*], [*0.09*], [*22 nm*],
     table.hline(stroke: 1.5pt),
   ),
   caption: [Comparison of on-chip interconnect designs.],

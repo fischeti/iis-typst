@@ -38,9 +38,11 @@
   columns: (3.2cm, 1fr),
   stroke: none,
   inset: (x: 0pt, y: 2.5pt),
-  [20XX -- 20XX], [*Ph.D. in [Field]*, [University]. \
+  [20XX -- 20XX],
+  [*Ph.D. in [Field]*, [University]. \
     Dissertation: _"Title of This Dissertation"_. \
     Supervisor: Prof. Dr. Supervisor Name.],
+
   [20XX -- 20XX], [*M.Sc. in [Field]*, [University].],
   [20XX -- 20XX], [*B.Sc. in [Field]*, [University].],
 )
@@ -88,8 +90,8 @@ _Conference Papers_
     text(weight: "bold", [Year]),
     text(weight: "bold", [Role]),
   ),
-  [Chip A], [TSMC Xnm],  [20XX], [Lead designer],
-  [Chip B], [GF Xnm],   [20XX], [Contributor],
+  [Chip A], [TSMC Xnm], [20XX], [Lead designer],
+  [Chip B], [GF Xnm], [20XX], [Contributor],
 )
 #text(size: 8pt, style: "italic")[See Appendix~B for details on each chip.]
 
@@ -104,7 +106,7 @@ _Conference Papers_
   stroke: none,
   inset: (x: 0pt, y: 2.5pt),
   [20XX -- 20XX], [Head Teaching Assistant, _Course Name_, [University].],
-  [20XX],         [Teaching Assistant, _Course Name_, [University].],
+  [20XX], [Teaching Assistant, _Course Name_, [University].],
 )
 
 #v(0.8em)

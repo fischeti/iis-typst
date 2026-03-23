@@ -6,8 +6,11 @@
 //
 // ETH Zurich IIS PhD Thesis Template for Typst
 
-#import "shared/utils.typ": fieldpar, pulp-colors, include-pdf, placeholder
-#import "@preview/acrostiche:0.7.0": init-acronyms, print-index, acr, acrpl, acrfull, reset-acronym, reset-all-acronyms
+#import "shared/utils.typ": fieldpar, include-pdf, placeholder, pulp-colors
+#import "@preview/acrostiche:0.7.0": (
+  acr, acrfull, acrpl, init-acronyms, print-index, reset-acronym,
+  reset-all-acronyms,
+)
 #import "@preview/gentle-clues:1.3.1": task
 
 #let placeholder = placeholder.with(template: "dissertation")
@@ -68,13 +71,12 @@
   /// Main body — chapters included via `#include` calls after the show rule.
   body,
 ) = {
-
   // Defaults
   // ────────
   if title == none { title = fieldpar[title] }
   if author == none { author = fieldpar[author name] }
   if date-of-birth == none { date-of-birth = fieldpar[dd.mm.yyyy] }
-  if supervisor == none { supervisor = fieldpar[doctoral thesis supervisor]}
+  if supervisor == none { supervisor = fieldpar[doctoral thesis supervisor] }
   if co-examiners.len() == 0 { co-examiners = (fieldpar[co-examiner],) }
   if year == none { year = fieldpar[20XX] }
   init-acronyms(acronyms)
@@ -88,22 +90,43 @@
   let make-header() = context {
     if not show-header.at(here()) { return }
     let pg = here().page()
-    if query(heading.where(level: 1))
-      .any(h => h.numbering != none and h.location().page() == pg) { return }
-    let h1s = query(heading.where(level: 1).before(here())).filter(h => h.numbering != none)
-    let h2s = query(heading.where(level: 2).before(here())).filter(h => h.numbering != none)
+    if query(heading.where(level: 1)).any(h => (
+      h.numbering != none and h.location().page() == pg
+    )) { return }
+    let h1s = query(heading.where(level: 1).before(here())).filter(h => (
+      h.numbering != none
+    ))
+    let h2s = query(heading.where(level: 2).before(here())).filter(h => (
+      h.numbering != none
+    ))
     if h1s.len() == 0 { return }
     let h1 = h1s.last()
-    let chapter-num   = numbering(h1.numbering, ..counter(heading).at(h1.location()))
-    let chapter-label = if h1.numbering == "A.1" { "Appendix" } else { "Chapter" }
-    let short         = chapter-short.at(h1.location())
-    let chapter-title = [#chapter-label #chapter-num: ] + if short != none { short } else { h1.body }
+    let chapter-num = numbering(
+      h1.numbering,
+      ..counter(heading).at(h1.location()),
+    )
+    let chapter-label = if h1.numbering == "A.1" { "Appendix" } else {
+      "Chapter"
+    }
+    let short = chapter-short.at(h1.location())
+    let chapter-title = (
+      [#chapter-label #chapter-num: ]
+        + if short != none { short } else { h1.body }
+    )
     let section-title = if h2s.len() > 0 {
       let h2 = h2s.last()
-      [#numbering(h2.numbering, ..counter(heading).at(h2.location())) ] + h2.body
+      (
+        [#numbering(h2.numbering, ..counter(heading).at(h2.location())) ]
+          + h2.body
+      )
     } else { [] }
     let is-odd = calc.odd(pg)
-    align(if is-odd { right } else { left }, text(size: 10pt, smallcaps(if is-odd { chapter-title } else { section-title })))
+    align(
+      if is-odd { right } else { left },
+      text(size: 10pt, smallcaps(if is-odd { chapter-title } else {
+        section-title
+      })),
+    )
     v(3pt)
     line(length: 100%, stroke: 0.4pt)
   }
@@ -114,7 +137,9 @@
     paper: "a5",
     margin: (top: 20mm, bottom: 20mm, inside: 22mm, outside: 18mm),
     header: make-header(),
-    footer: context { align(center, text(size: 12pt, counter(page).display())) },
+    footer: context {
+      align(center, text(size: 12pt, counter(page).display()))
+    },
   )
 
   // Text & Paragraphs
@@ -136,7 +161,10 @@
   // Track whether the last block-level element was a non-paragraph, used by
   // the level-4 show rule to decide whether to cancel first-line-indent.
   let after-block = state("dissertation-after-block", true)
-  show par: it => { after-block.update(false); it }
+  show par: it => {
+    after-block.update(false)
+    it
+  }
 
   // Level 1: gray number + gray vertical rule + unjustified title
   show heading.where(level: 1): it => {
@@ -150,11 +178,13 @@
         stroke: ((right: 1pt + pulp-colors.gray.base), none),
         inset: (
           (left: 0pt, right: 1em, top: 0pt, bottom: 0pt),
-          (left: 1em, right: 0pt, top: 0pt, bottom: 0pt)
+          (left: 1em, right: 0pt, top: 0pt, bottom: 0pt),
         ),
         // Use it.numbering so appendices show "A", "B", … not "1", "2", …
-        text(size: 40pt, fill: pulp-colors.gray.base, weight: "bold",
-          numbering(it.numbering, ..counter(heading).at(it.location()))),
+        text(size: 40pt, fill: pulp-colors.gray.base, weight: "bold", numbering(
+          it.numbering,
+          ..counter(heading).at(it.location()),
+        )),
         text(size: 24pt, weight: "bold", it.body),
       )
     } else {
@@ -168,10 +198,16 @@
   show heading.where(level: 1): set heading(supplement: [Chapter])
   show heading.where(level: 2): set text(size: 14pt, weight: "bold")
   show heading.where(level: 2): set block(above: 1.6em, below: 0.8em)
-  show heading.where(level: 2): it => { it; after-block.update(true) }
+  show heading.where(level: 2): it => {
+    it
+    after-block.update(true)
+  }
   show heading.where(level: 3): set text(size: 12pt, weight: "bold")
   show heading.where(level: 3): set block(above: 1.6em, below: 0.8em)
-  show heading.where(level: 3): it => { it; after-block.update(true) }
+  show heading.where(level: 3): it => {
+    it
+    after-block.update(true)
+  }
   // Level 4: inline paragraph heading — bold text followed by em-space.
   // TODO(fischeti): This does not work for all paragraphs for some reason.
   show heading.where(level: 4): it => {
@@ -199,15 +235,15 @@
     [Prof. Dr. Frank K. Gürkaynak (ETH Zurich)]
     v(1em)
     [The series "Series in Microelectronics" is published by the Electronics Laboratory
-    (IfE) of ETH Zurich. The volumes are available through Hartung-Gorre Verlag, Konstanz.]
+      (IfE) of ETH Zurich. The volumes are available through Hartung-Gorre Verlag, Konstanz.]
     v(2fr)
     [*Bibliografische Information der Deutschen Nationalbibliothek*\ ]
     [Die Deutsche Nationalbibliothek verzeichnet diese Publikation in der Deutschen
-    Nationalbibliografie; detaillierte bibliografische Daten sind im Internet über
-    #link("http://dnb.d-nb.de")[http://dnb.d-nb.de] abrufbar.]
+      Nationalbibliografie; detaillierte bibliografische Daten sind im Internet über
+      #link("http://dnb.d-nb.de")[http://dnb.d-nb.de] abrufbar.]
     v(0.5em)
     [© #if published != none { published } else if year != none { str(year) } else { "20XX" }
-    #if author != none { author }]
+      #if author != none { author }]
     v(0.5em)
     if isbn != none [ISBN #isbn\ ]
     if isbn-long != none [ISBN #isbn-long\ ]
@@ -215,37 +251,44 @@
     v(1fr)
   })
 
-  let official-title-page() = page(numbering: none, header: none, footer: none, {
-    set align(center)
-    let diss-str = if diss-number != none { str(diss-number) } else { "___________" }
-    text(size: 12pt, weight: "bold", smallcaps[Diss. ETH No. #diss-str])
-    v(1fr)
-    text(size: 24pt, weight: "bold", title)
-    v(1fr)
-    text(size: 12pt)[
-      A thesis submitted to attain the degree of
+  let official-title-page() = page(
+    numbering: none,
+    header: none,
+    footer: none,
+    {
+      set align(center)
+      let diss-str = if diss-number != none { str(diss-number) } else {
+        "___________"
+      }
+      text(size: 12pt, weight: "bold", smallcaps[Diss. ETH No. #diss-str])
+      v(1fr)
+      text(size: 24pt, weight: "bold", title)
+      v(1fr)
+      text(size: 12pt)[
+        A thesis submitted to attain the degree of
 
-      #text(size: 18pt, smallcaps[*Doctor of Sciences*])
-      #linebreak()
-      *(Dr. sc. ETH Zurich)*
+        #text(size: 18pt, smallcaps[*Doctor of Sciences*])
+        #linebreak()
+        *(Dr. sc. ETH Zurich)*
 
-      presented by
-    ]
-    v(1fr)
-    text(size: 18pt, author)
-    linebreak()
-    text(size: 12pt, [born on #date-of-birth])
-    v(1fr)
-    text(size: 12pt)[accepted on the recommendation of]
-    v(0.1em)
-    text(size: 12pt, supervisor + [, supervisor])
-    for ex in co-examiners {
+        presented by
+      ]
+      v(1fr)
+      text(size: 18pt, author)
       linebreak()
-      text(size: 12pt, ex + [, co-examiner])
-    }
-    v(1fr)
-    text(size: 12pt, str(year))
-  })
+      text(size: 12pt, [born on #date-of-birth])
+      v(1fr)
+      text(size: 12pt)[accepted on the recommendation of]
+      v(0.1em)
+      text(size: 12pt, supervisor + [, supervisor])
+      for ex in co-examiners {
+        linebreak()
+        text(size: 12pt, ex + [, co-examiner])
+      }
+      v(1fr)
+      text(size: 12pt, str(year))
+    },
+  )
 
   // Front Matter
   // ────────────
@@ -294,15 +337,21 @@
         *For figures and tables* taken from an IEEE paper, add a short copyright line
         prominently to each caption — even if the surrounding chapter text is your own
         paper. Example caption suffix:
-        #block(inset: (left: 1em), [_© 2022 IEEE. Reprinted, with permission, from
-        A. Author et al., "A Novel Architecture for Efficient On-Chip Communication,"
-        IEEE Trans. VLSI Syst., 2022._])
+        #block(
+          inset: (left: 1em),
+          [_© 2022 IEEE. Reprinted, with permission, from
+          A. Author et al., "A Novel Architecture for Efficient On-Chip Communication,"
+          IEEE Trans. VLSI Syst., 2022._],
+        )
 
         *For an entire paper reprinted as a chapter*, add the following once in the
         bibliography/references section:
-        #block(inset: (left: 1em), [_© 2023 IEEE. Reprinted, with permission, from
-        A. Author and B. Coauthor, "Scalable Interconnect Design for Many-Core Systems,"
-        IEEE J. Solid-State Circuits, vol. 58, no. 4, pp. 1012–1025, Apr. 2023._])
+        #block(
+          inset: (left: 1em),
+          [_© 2023 IEEE. Reprinted, with permission, from
+          A. Author and B. Coauthor, "Scalable Interconnect Design for Many-Core Systems,"
+          IEEE J. Solid-State Circuits, vol. 58, no. 4, pp. 1012–1025, Apr. 2023._],
+        )
 
         *Note:* If you are the first/senior author, no formal reuse license is required
         by IEEE — the notices above are sufficient.
@@ -340,15 +389,15 @@
   }
   show figure.caption: cap => context {
     let ch = counter(heading).get().first()
-    let n  = cap.counter.get().first()
+    let n = cap.counter.get().first()
     align(left, [#cap.supplement #ch.#n#cap.separator #cap.body])
   }
   show ref: r => context {
     let el = r.element
     if el == none or el.func() != figure { return r }
     let ch = counter(heading).at(el.location()).first()
-    let n  = counter(figure.where(kind: el.kind)).at(el.location()).first()
-    let s  = if el.kind == image { [Figure] } else { [Table] }
+    let n = counter(figure.where(kind: el.kind)).at(el.location()).first()
+    let s = if el.kind == image { [Figure] } else { [Table] }
     link(el.location(), [#s~#ch.#n])
   }
 

@@ -34,7 +34,7 @@
   ],
   logo: automaton(
     (q0: (q1: ""), q1: (q2: ""), q2: (q3: ""), q3: none),
-    labels: (q0: "L", q1: "O", q2: "G", q3: "O",),
+    labels: (q0: "L", q1: "O", q2: "G", q3: "O"),
   ),
   acronyms: acronyms,
   bibliography: bibliography("references.bib", style: "ieee", full: true),
@@ -125,11 +125,11 @@ The design consists of three main components: a frontend, a backend, and a memor
       rect(pos, (rel: (2.8, 1)), name: name, radius: 0.1, fill: color)
       content(name, label)
     }
-    blk((0, 0),   "fe",  [Frontend], rgb("#a8d8ea"))
-    blk((3.8, 0), "be",  [Backend],  rgb("#a8e6cf"))
-    blk((7.6, 0), "mem", [Memory],   rgb("#ffd3b6"))
-    line("fe.east",  "be.west",  mark: (end: ">"))
-    line("be.east",  "mem.west", mark: (end: ">"))
+    blk((0, 0), "fe", [Frontend], rgb("#a8d8ea"))
+    blk((3.8, 0), "be", [Backend], rgb("#a8e6cf"))
+    blk((7.6, 0), "mem", [Memory], rgb("#ffd3b6"))
+    line("fe.east", "be.west", mark: (end: ">"))
+    line("be.east", "mem.west", mark: (end: ">"))
   }),
   caption: [High-level architecture of the proposed design.],
 ) <fig:architecture>
@@ -166,11 +166,11 @@ technology node.
     table.hline(stroke: 1.5pt),
     table.header([Module], [Area \[kGE\]], [Freq. \[MHz\]]),
     table.hline(stroke: 0.75pt),
-    [Frontend],    [42.3],  [800],
-    [Backend],     [128.7], [800],
-    [Memory],      [35.1],  [800],
+    [Frontend], [42.3], [800],
+    [Backend], [128.7], [800],
+    [Memory], [35.1], [800],
     table.hline(stroke: 0.75pt),
-    [*Total*],     [*206.1*], [*800*],
+    [*Total*], [*206.1*], [*800*],
     table.hline(stroke: 1.5pt),
   ),
   caption: [Post-synthesis results on 22 nm technology.],

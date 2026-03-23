@@ -6,9 +6,14 @@
 //
 // An IIS Thesis Report Template for Typst
 
-#import "shared/utils.typ": fieldpar, current-semester, eth-header, include-pdf, placeholder
-#import "@preview/acrostiche:0.7.0": init-acronyms, print-index, acr, acrpl, acrfull, reset-acronym, reset-all-acronyms
-#import "@preview/gentle-clues:1.3.1": task, code
+#import "shared/utils.typ": (
+  current-semester, eth-header, fieldpar, include-pdf, placeholder,
+)
+#import "@preview/acrostiche:0.7.0": (
+  acr, acrfull, acrpl, init-acronyms, print-index, reset-acronym,
+  reset-all-acronyms,
+)
+#import "@preview/gentle-clues:1.3.1": code, task
 
 /// The IIS Thesis template
 #let thesis(
@@ -52,18 +57,27 @@
   body,
 ) = {
   // Check for missing cover page fields and substitute placeholders
-  let cover-incomplete = (title, author, reporttype, advisors, professors).any(v => v == none)
-  if title      == none { title      = fieldpar[title] }
-  if author     == none { author     = fieldpar[author name] }
+  let cover-incomplete = (title, author, reporttype, advisors, professors).any(
+    v => v == none,
+  )
+  if title == none { title = fieldpar[title] }
+  if author == none { author = fieldpar[author name] }
   if reporttype == none { reporttype = fieldpar[report type] }
-  if advisors   == none { advisors   = ((name: fieldpar[advisors],   mail: ""),) }
-  if professors == none { professors = ((name: fieldpar[professors], mail: ""),) }
+  if advisors == none { advisors = ((name: fieldpar[advisors], mail: ""),) }
+  if professors == none {
+    professors = ((name: fieldpar[professors], mail: ""),)
+  }
 
   // Initialize acronyms (empty dict if none provided)
   init-acronyms(if acronyms != none { acronyms } else { (:) })
 
   // Global page & typography settings
-  set page(paper: "a4", margin: (top: 25mm, bottom: 25mm, left: 30mm, right: 30mm))
+  set page(paper: "a4", margin: (
+    top: 25mm,
+    bottom: 25mm,
+    left: 30mm,
+    right: 30mm,
+  ))
   set text(size: 12pt, lang: "en")
   set par(justify: true)
   set list(indent: 1em)
@@ -79,8 +93,12 @@
     if it.numbering != none { pagebreak(weak: true) }
     v(2em)
     if it.numbering != none {
-      block(text(size: 60pt, fill: luma(220), weight: "bold",
-        counter(heading).display()))
+      block(text(
+        size: 60pt,
+        fill: luma(220),
+        weight: "bold",
+        counter(heading).display(),
+      ))
     }
     line(length: 100%, stroke: 0.5pt)
     v(0.5em)
@@ -88,7 +106,11 @@
   }
   show heading.where(level: 2): set text(size: 16pt, weight: "bold")
   show heading.where(level: 2): set block(above: 1.2em, below: 0.6em)
-  show heading.where(level: 3): set text(size: 14pt, weight: "bold", style: "italic")
+  show heading.where(level: 3): set text(
+    size: 14pt,
+    weight: "bold",
+    style: "italic",
+  )
   show heading.where(level: 3): set block(above: 1em, below: 0.5em)
   // Level 4: inline paragraph heading — bold text followed by em-space
   show heading.where(level: 4): it => {
@@ -126,7 +148,7 @@
         placeholder(
           title: "Complete Cover Page",
           description: [Fill in the required fields when calling the template:],
-          snippet: "title: \"My Thesis Title\",\n  author: \"Jane Doe\",\n  email: \"jdoe@iis.ee.ethz.ch\",\n  reporttype: \"Master Thesis\",\n  advisors: (\n    (name: \"Dr. Alice Smith\", mail: \"asmith@iis.ee.ethz.ch\"),\n    (name: \"Bob Jones\",       mail: \"bjones@iis.ee.ethz.ch\"),\n  ),\n  professors: (\n    (name: \"Prof. Dr. Carol Miller\", mail: \"cmiller@iis.ee.ethz.ch\"),\n  ),"
+          snippet: "title: \"My Thesis Title\",\n  author: \"Jane Doe\",\n  email: \"jdoe@iis.ee.ethz.ch\",\n  reporttype: \"Master Thesis\",\n  advisors: (\n    (name: \"Dr. Alice Smith\", mail: \"asmith@iis.ee.ethz.ch\"),\n    (name: \"Bob Jones\",       mail: \"bjones@iis.ee.ethz.ch\"),\n  ),\n  professors: (\n    (name: \"Prof. Dr. Carol Miller\", mail: \"cmiller@iis.ee.ethz.ch\"),\n  ),",
         )
       }
       if logo != none {
@@ -135,7 +157,7 @@
         placeholder(
           title: "Provide a logo",
           description: [Pass an image to the template, or set #raw(lang: "typc", "logo: []") to omit:],
-          snippet: "logo: image(\"/figures/logo.svg\"),\n  // Or to omit:\n  logo: [],"
+          snippet: "logo: image(\"/figures/logo.svg\"),\n  // Or to omit:\n  logo: [],",
         )
       }
 
@@ -167,7 +189,7 @@
       for professor in professors [
         - #professor.name, #link("mailto:" + professor.mail)[#raw(professor.mail)]
       ]
-    }
+    },
   )
 
   // Reset page counter to 1 for frontmatter (after title page)
@@ -183,7 +205,7 @@
       placeholder(
         title: "Write Acknowledgements",
         description: [Pass content directly or load from a separate file:],
-        snippet: "acknowledgements: [I would like to thank ...],\n  // Or from a file:\n  acknowledgements: include \"/acknowledgements.typ\","
+        snippet: "acknowledgements: [I would like to thank ...],\n  // Or from a file:\n  acknowledgements: include \"/acknowledgements.typ\",",
       )
     }
   })
@@ -198,7 +220,7 @@
       placeholder(
         title: "Write Abstract",
         description: [Pass content directly or load from a separate file:],
-        snippet: "abstract: [This thesis presents ...],\n  // Or from a file:\n  abstract: include \"/abstract.typ\","
+        snippet: "abstract: [This thesis presents ...],\n  // Or from a file:\n  abstract: include \"/abstract.typ\",",
       )
     }
   })
@@ -208,10 +230,10 @@
     show heading: set heading(numbering: none, outlined: false)
     heading(level: 1)[Declaration of Originality]
     [I hereby confirm that I am the sole author of the written work here
-    enclosed and that I have compiled it in my own words. Parts excepted
-    are corrections of form and content by the supervisor. For a detailed
-    version of the declaration of originality, please refer to
-    @app:originality.]
+      enclosed and that I have compiled it in my own words. Parts excepted
+      are corrections of form and content by the supervisor. For a detailed
+      version of the declaration of originality, please refer to
+      @app:originality.]
   })
 
   // List of Acronyms (optional, shown before the ToC)
@@ -231,21 +253,27 @@
     } else {
       task(title: "Add Acronyms")[
         Step 1 — create an `acronyms.typ` file with your definitions:
-        #code[#raw(lang: "typc", block: true,
-"#let acronyms = (
+        #code[#raw(
+          lang: "typc",
+          block: true,
+          "#let acronyms = (
   \"IIS\": (\"Integrated Systems Laboratory\",),
   \"SoC\": (short: \"SoC\", long: \"System-on-Chip\",
           short-pl: \"SoCs\", long-pl: \"Systems-on-Chip\"),
-)")]
+)",
+        )]
         Step 2 — import and pass it to the template:
-        #code[#raw(lang: "typc", block: true,
-"#import \"/acronyms.typ\": acronyms
+        #code[#raw(
+          lang: "typc",
+          block: true,
+          "#import \"/acronyms.typ\": acronyms
 
 #show: thesis.with(
   // ...
   acronyms: acronyms,
   // ...
-)")]
+)",
+        )]
       ]
     }
   })
@@ -296,7 +324,7 @@
     placeholder(
       title: "Add Assignment Description",
       description: [Include the assignment description PDF you received from your advisor:],
-      snippet: "assignment-description: include-pdf(\"/figures/assignment.pdf\", pages: 3),"
+      snippet: "assignment-description: include-pdf(\"/figures/assignment.pdf\", pages: 3),",
     )
   }
 
@@ -311,10 +339,14 @@
       description: [
         Download, sign, and scan the official ETH Zurich declaration of originality,
         then include it here. The form is available at:
-        - #link("https://ethz.ch/content/dam/ethz/main/education/rechtliches-abschluesse/leistungskontrollen/declaration-originality.pdf")[English version]
-        - #link("https://ethz.ch/content/dam/ethz/main/education/rechtliches-abschluesse/leistungskontrollen/plagiat-eigenstaendigkeitserklaerung.pdf")[German version]
+        - #link(
+            "https://ethz.ch/content/dam/ethz/main/education/rechtliches-abschluesse/leistungskontrollen/declaration-originality.pdf",
+          )[English version]
+        - #link(
+            "https://ethz.ch/content/dam/ethz/main/education/rechtliches-abschluesse/leistungskontrollen/plagiat-eigenstaendigkeitserklaerung.pdf",
+          )[German version]
       ],
-      snippet: "declaration-of-originality: include-pdf(\"/figures/declaration_of_originality.pdf\"),"
+      snippet: "declaration-of-originality: include-pdf(\"/figures/declaration_of_originality.pdf\"),",
     )
   }
   // Backmatter with bibliography
@@ -325,7 +357,7 @@
     placeholder(
       title: "Add Bibliography",
       description: [Create a BibTeX file and pass its path to the template:],
-      snippet: "bibliography: bibliography(\"references.bib\", style: \"ieee\", full: true),"
+      snippet: "bibliography: bibliography(\"references.bib\", style: \"ieee\", full: true),",
     )
   }
 }

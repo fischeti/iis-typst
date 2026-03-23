@@ -29,10 +29,12 @@ of technical work or supervision.
       columns: (auto, 1fr),
       stroke: none,
       inset: (x: 4pt, y: 3pt),
-      ..specs.map(s => (
-        text(weight: "bold", size: 8pt, s.first()),
-        text(size: 8pt, s.last()),
-      )).flatten(),
+      ..specs
+        .map(s => (
+          text(weight: "bold", size: 8pt, s.first()),
+          text(size: 8pt, s.last()),
+        ))
+        .flatten(),
     ),
   )
 
@@ -59,12 +61,12 @@ of technical work or supervision.
   [*Firstname Lastname*, Collaborator One, Collaborator Two, Supervisor Name],
   // Specs — array of (label, value) pairs
   (
-    ("Application",  [High-performance NoC / Research Project]),
-    ("Technology",   [TSMC Xnm / Custom Package]),
-    ("Dimensions",   [$X.X "mm" times Y.Y "mm"$]),
-    ("Gate count",   [$Z$ MGE]),
-    ("Voltage",      [$V$ V]),
-    ("Clock",        [$F$ GHz]),
+    ("Application", [High-performance NoC / Research Project]),
+    ("Technology", [TSMC Xnm / Custom Package]),
+    ("Dimensions", [$X.X "mm" times Y.Y "mm"$]),
+    ("Gate count", [$Z$ MGE]),
+    ("Voltage", [$V$ V]),
+    ("Clock", [$F$ GHz]),
   ),
   // Description
   [
@@ -82,12 +84,12 @@ of technical work or supervision.
   ],
   [Collaborator One, *Firstname Lastname*, Collaborator Two, Supervisor Name],
   (
-    ("Application",  [IoT Processor / Research Project]),
-    ("Technology",   [GF Xnm / QFN Package]),
-    ("Dimensions",   [$X.X "mm" times Y.Y "mm"$]),
-    ("Gate count",   [$Z$ MGE]),
-    ("Voltage",      [$V$ V -- $W$ V]),
-    ("Clock",        [$F$ MHz]),
+    ("Application", [IoT Processor / Research Project]),
+    ("Technology", [GF Xnm / QFN Package]),
+    ("Dimensions", [$X.X "mm" times Y.Y "mm"$]),
+    ("Gate count", [$Z$ MGE]),
+    ("Voltage", [$V$ V -- $W$ V]),
+    ("Clock", [$F$ MHz]),
   ),
   [
     Replace this paragraph with a description of the chip.

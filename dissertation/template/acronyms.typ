@@ -17,38 +17,44 @@
 #let acronyms = (
   // Hardware
   // ────────
-  "IC":   ("Integrated Circuit",),
-  "IIS":  ("Integrated Systems Laboratory",),
-  "RTL":  ("Register-Transfer Level",),
+  "IC": ("Integrated Circuit",),
+  "IIS": ("Integrated Systems Laboratory",),
+  "RTL": ("Register-Transfer Level",),
   "ASIC": ("Application-Specific Integrated Circuit",),
   "FPGA": ("Field-Programmable Gate Array",),
-  "NoC":  ("Network-on-Chip",),
-  "ALU":  ("Arithmetic Logic Unit",),
-  "LLC":  ("Last-Level Cache",),
+  "NoC": ("Network-on-Chip",),
+  "ALU": ("Arithmetic Logic Unit",),
+  "LLC": ("Last-Level Cache",),
 
   // Systems
   // ───────
   "SoC": (
-    short: "SoC", long: "System-on-Chip",
-    short-pl: "SoCs", long-pl: "Systems-on-Chip",
+    short: "SoC",
+    long: "System-on-Chip",
+    short-pl: "SoCs",
+    long-pl: "Systems-on-Chip",
   ),
   "HDL": (
-    short: "HDL", long: "Hardware Description Language",
-    short-pl: "HDLs", long-pl: "Hardware Description Languages",
+    short: "HDL",
+    long: "Hardware Description Language",
+    short-pl: "HDLs",
+    long-pl: "Hardware Description Languages",
   ),
   "ISA": (
-    short: "ISA", long: "Instruction Set Architecture",
-    short-pl: "ISAs", long-pl: "Instruction Set Architectures",
+    short: "ISA",
+    long: "Instruction Set Architecture",
+    short-pl: "ISAs",
+    long-pl: "Instruction Set Architectures",
   ),
 
   // Verification
   // ────────────
-  "EDA":  ("Electronic Design Automation",),
-  "DUT":  ("Design Under Test",),
-  "UVM":  ("Universal Verification Methodology",),
+  "EDA": ("Electronic Design Automation",),
+  "DUT": ("Design Under Test",),
+  "UVM": ("Universal Verification Methodology",),
 
   // Metrics
   // ───────
-  "PPA":  ("Power, Performance, and Area",),
-  "IPC":  ("Instructions Per Cycle",),
+  "PPA": ("Power, Performance, and Area",),
+  "IPC": ("Instructions Per Cycle",),
 )

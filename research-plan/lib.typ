@@ -6,7 +6,7 @@
 //
 // An IIS Research Plan Template for Typst
 
-#import "shared/utils.typ": fieldpar, eth-header, pulp-colors
+#import "shared/utils.typ": eth-header, fieldpar, pulp-colors
 
 /// The IIS Research Plan template for PhD candidates.
 #let research-plan(
@@ -30,7 +30,7 @@
   body,
 ) = {
   // Substitute fieldpar placeholders for missing required fields
-  if title  == none { title  = fieldpar[title] }
+  if title == none { title = fieldpar[title] }
   if author == none { author = fieldpar[author name] }
 
   // Global page & typography settings
@@ -54,7 +54,11 @@
   show heading.where(level: 1): set block(above: 2em, below: 1em)
   show heading.where(level: 2): set text(size: 14pt, weight: "bold")
   show heading.where(level: 2): set block(above: 1.2em, below: 1em)
-  show heading.where(level: 3): set text(size: 12pt, weight: "bold", style: "italic")
+  show heading.where(level: 3): set text(
+    size: 12pt,
+    weight: "bold",
+    style: "italic",
+  )
   show heading.where(level: 3): set block(above: 1em, below: 0.5em)
 
   // Cover block — inline at the top of the first page so body follows on the same page

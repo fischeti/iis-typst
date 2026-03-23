@@ -8,7 +8,7 @@
 //   typst compile main.typ
 
 #import "@preview/ethz-iis-dissertation:0.1.0": dissertation
-#import "@preview/ethz-iis-dissertation:0.1.0": acr, acrpl, acrfull
+#import "@preview/ethz-iis-dissertation:0.1.0": acr, acrfull, acrpl
 #import "acronyms.typ": acronyms
 
 #show: dissertation.with(
@@ -25,7 +25,7 @@
   year: 2026,
 
   // Render mode
-  mode: "official",    // Switch to "series" for the Hartung-Gorre publication copy
+  mode: "official", // Switch to "series" for the Hartung-Gorre publication copy
 
   // Series mode extras (ignored when mode: "official")
   // volume: 42,
@@ -39,7 +39,7 @@
     include "chapters/abstract_en.typ",
     include "chapters/abstract_de.typ",
   ),
-  acronyms:         acronyms,
+  acronyms: acronyms,
 
   // Back matter
   bibliography: bibliography("references.bib", style: "ieee"),
