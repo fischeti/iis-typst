@@ -1,75 +1,88 @@
 # IIS Typst Templates
 
-Typst templates for student theses and task descriptions at the
+Typst templates for documents at the
 [Integrated Systems Laboratory (IIS)](https://iis.ee.ethz.ch), ETH Zurich.
 
 ## Templates
 
-| Template | Description | Audience |
+| Package | Description | Audience |
 |---|---|---|
-| `templates/thesis.typ` | Master thesis / semester project report | Students |
-| `templates/assignment.typ` | Assignment description handed to students | Advisors |
-| `templates/research_plan.typ` | PhD research plan (first-year report) | PhD students |
+| [`@preview/ethz-iis-dissertation`](dissertation/) | PhD dissertation | PhD students |
+| [`@preview/ethz-iis-thesis`](thesis/) | Master / Bachelor / Semester thesis report | Students |
+| [`@preview/ethz-iis-research-plan`](research-plan/) | PhD research plan (first-year report) | PhD students |
+| [`@preview/ethz-iis-assignment`](assignment/) | Thesis assignment sheet | Advisors |
+
+> [!NOTE]
+> These packages are pending publication on [Typst Universe](https://typst.app/universe).
+> Until then, use the local development workflow described below.
 
 ## Getting Started
 
-### Option 1: Typst Web App (recommended)
+### From Typst Universe
 
-1. Go to [typst.app](https://typst.app) and create a project.
-2. Upload this repository (or just the `templates/` directory) to the project.
-3. Create a new `.typ` file at the project root and import the template:
-
-```typ
-#import "templates/thesis.typ": *
-
-#show: thesis.with(
-  title: "My Thesis Title",
-  author: "Jane Doe",
-  email: "jdoe@iis.ee.ethz.ch",
-  reporttype: "Master Thesis",
-  advisors: (
-    (name: "Dr. Alice Smith", mail: "asmith@iis.ee.ethz.ch"),
-  ),
-  professors: (
-    (name: "Prof. Dr. Carol Miller", mail: "cmiller@iis.ee.ethz.ch"),
-  ),
-  bibliography: bibliography("references.bib", style: "ieee", full: true),
-)
-
-= Introduction
-
-Your thesis starts here.
-```
-
-The web app compiles and previews the PDF live in the browser — no local
-installation needed.
-
-### Option 2: Local Development
-
-Install the Typst compiler ([installation instructions](https://github.com/typst/typst#installation)), then compile from the repository root:
+Once published, initialize any template with `typst init`:
 
 ```sh
-typst compile your_thesis.typ
+typst init @preview/ethz-iis-dissertation:0.1.0    # PhD dissertation
+typst init @preview/ethz-iis-thesis:0.1.0          # thesis report
+typst init @preview/ethz-iis-research-plan:0.1.0   # research plan
+typst init @preview/ethz-iis-assignment:0.1.0      # assignment sheet
 ```
 
-Missing fields show a highlighted placeholder clue in the compiled PDF rather
-than an error, so you can compile at any stage of writing. See
-`examples/thesis.typ` for a full working example.
+This copies a ready-to-compile example project into a new directory.
+Alternatively, search for **ethz-iis** in the [Typst Universe](https://typst.app/universe)
+and start the template from there.
 
-> [!NOTE]
-> The `examples/` directory contains working examples that can be compiled
-> directly from the repository root:
-> ```sh
-> typst compile --root . examples/thesis.typ
-> ```
-> The `--root .` flag is required because the examples import from the parent
-> directory.
+### Local Development (from this repo)
+
+Clone the repository, then pass `--package-path /path/to/iis-typst/packages`
+from anywhere so that Typst resolves `@preview/ethz-iis-*` against the local
+package directories:
+
+```sh
+git clone https://github.com/pulp-platform/iis-typst
+
+# Initialize a project anywhere
+typst init --package-path /path/to/iis-typst/packages \
+    @preview/ethz-iis-dissertation:0.1.0 my-dissertation
+
+# Compile
+cd my-dissertation
+typst compile --package-path /path/to/iis-typst/packages main.typ
+```
+
+The `packages/preview/` directory contains symlinks that point to the package
+subdirectories in this repo, so any local change to a template is reflected
+immediately on the next compile.
+
+## Contributing / Modifying Templates
+
+Each template lives in its own subdirectory (`dissertation/`, `thesis/`, etc.)
+and is an independent Typst package:
+
+```
+<package>/
+├── typst.toml            # package manifest
+├── lib.typ               # template implementation
+├── shared/               # symlink → ../shared/ (utils + ETH figures)
+└── template/             # example project copied on `typst init`
+    └── main.typ
+```
+
+Shared utilities (`utils.typ`) and ETH brand assets (`figures/`) live in
+`shared/` and are symlinked into each package. Before submitting a package
+to Typst Universe, replace the symlink with a real copy:
+
+```sh
+cd dissertation
+rm shared && cp -r ../shared .
+```
 
 ## Acronyms
 
 Define acronyms in a separate file and pass them to the template:
 
-```typ
+```typst
 #let acronyms = (
   "IC":  ("Integrated Circuit",),
   "SoC": (
@@ -83,18 +96,13 @@ Use them in text with `#acr("IC")`, `#acrpl("SoC")`, or `#acrfull("IC")`.
 
 ## Including PDFs
 
-Use `include-pdf` (re-exported from the template) to embed scanned documents
+Use `include-pdf` (re-exported from each template) to embed scanned documents
 such as the signed declaration of originality:
 
-```typ
+```typst
 declaration-of-originality: include-pdf("figures/declaration.pdf"),
 ```
 
-## For Advisors and PhD Students
-
-- **Assignment description** (`templates/assignment.typ`): handed to students at the start of a project. See `examples/assignment.typ` for a working example.
-- **Research plan** (`templates/research_plan.typ`): written by PhD candidates at the end of their first year, covering motivation, completed work, project definition, and a tentative timeline. See `examples/research_plan.typ` for a working example.
-
 ## License
 
-Apache 2.0 — see [LICENSE](LICENSE).
+Apache-2.0 — see [LICENSE](LICENSE).
