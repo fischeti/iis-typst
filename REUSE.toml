@@ -15,6 +15,11 @@ SPDX-FileCopyrightText = "2026 ETH Zurich"
 SPDX-License-Identifier = "Apache-2.0"
 
 [[annotations]]
-path = ["shared/figures/eth_logo_kurz_pos.svg", "shared/figures/iis-header.svg"]
+path = ["shared/figures/pulp_logo_icon.svg", "shared/figures/pulp_logo_inline.svg"]
+SPDX-FileCopyrightText = "2026 ETH Zurich"
+SPDX-License-Identifier = "Apache-2.0"
+
+[[annotations]]
+path = ["shared/figures/eth_logo_kurz_pos.svg"]
 SPDX-FileCopyrightText = "ETH Zürich"
 SPDX-License-Identifier = "LicenseRef-ETH-Trademark"

@@ -1,7 +1,7 @@
 ETH Zürich Trademark Notice
 
-The ETH Zürich logo (eth_logo_kurz_pos.svg) and IIS header (iis-header.svg) are
-trademarks of ETH Zürich. They are reproduced here as publicly available assets.
+The ETH Zürich logo (eth_logo_kurz_pos.svg) is a trademark of ETH Zürich,
+reproduced here as a publicly available asset.
 
 From a copyright standpoint, the ETH Zürich logo is in the public domain as it
 does not meet the threshold of originality required for copyright protection:
