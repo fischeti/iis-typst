@@ -3,7 +3,6 @@ version = 1
 [[annotations]]
 path = [
   "**/*.png",
-  "**/*.svg",
   "**/*.bib",
   "**/*.toml",
   "**/*.md",
@@ -14,3 +13,8 @@ path = [
 ]
 SPDX-FileCopyrightText = "2026 ETH Zurich and University of Bologna"
 SPDX-License-Identifier = "Apache-2.0"
+
+[[annotations]]
+path = ["shared/figures/eth_logo_kurz_pos.svg", "shared/figures/iis-header.svg"]
+SPDX-FileCopyrightText = "ETH Zürich"
+SPDX-License-Identifier = "LicenseRef-ETH-Trademark"

@@ -70,6 +70,13 @@ Or add it to an existing project:
 | `appendices` | array | Appendix chapters |
 | `cv` | content | Curriculum Vitae content |
 
+## Third-Party Assets
+
+The ETH Zürich logo and IIS header (`shared/figures/`) are trademarks of ETH Zürich
+and are **not** covered by the Apache-2.0 license. The logo is reproduced as publicly
+available on [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:ETH_Z%C3%BCrich_Logo_black.svg).
+Users must comply with [ETH Zürich's branding guidelines](https://ethz.ch/en/the-eth-zurich/communication/corporate-design.html).
+
 ## License
 
 Apache-2.0 — Copyright 2026 ETH Zurich and University of Bologna.

@@ -103,6 +103,14 @@ such as the signed declaration of originality:
 declaration-of-originality: include-pdf("figures/declaration.pdf"),
 ```
 
+## Third-Party Assets
+
+The ETH Zürich logo (`shared/figures/eth_logo_kurz_pos.svg`) and IIS header
+(`shared/figures/iis-header.svg`) are trademarks of ETH Zürich and are **not**
+covered by the Apache-2.0 license. The logo is reproduced as publicly available
+on [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:ETH_Z%C3%BCrich_Logo_black.svg).
+Users must comply with [ETH Zürich's branding guidelines](https://ethz.ch/en/the-eth-zurich/communication/corporate-design.html).
+
 ## License
 
 Apache-2.0 — see [LICENSE](LICENSE).
