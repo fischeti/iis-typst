@@ -74,12 +74,27 @@ def main():
                 f.write(new_src)
             print(f"  {path}")
 
-    # Add new version symlink in packages/preview/
-    link = f"packages/preview/ethz-iis-{pkg}/{new_ver}"
-    os.makedirs(os.path.dirname(link), exist_ok=True)
-    if not os.path.exists(link):
-        os.symlink(f"../../../{pkg}", link)
-        print(f"  created {link}")
+    # Update version references in READMEs
+    for readme_path in (f"{pkg}/README.md", "README.md"):
+        if os.path.exists(readme_path):
+            with open(readme_path) as f:
+                src = f.read()
+            new_src = src.replace(f"ethz-iis-{pkg}:{old_ver}", f"ethz-iis-{pkg}:{new_ver}")
+            if new_src != src:
+                with open(readme_path, "w") as f:
+                    f.write(new_src)
+                print(f"  {readme_path}")
+
+    # Replace old version symlink in packages/preview/ with new one
+    pkg_dir = f"packages/preview/ethz-iis-{pkg}"
+    old_link = f"{pkg_dir}/{old_ver}"
+    new_link = f"{pkg_dir}/{new_ver}"
+    os.makedirs(pkg_dir, exist_ok=True)
+    if os.path.islink(old_link):
+        os.remove(old_link)
+        print(f"  removed {old_link}")
+    os.symlink(f"../../../{pkg}", new_link)
+    print(f"  created {new_link}")
 
     print(f"\n{pkg}: {old_ver} → {new_ver}")
 
