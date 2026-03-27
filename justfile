@@ -61,6 +61,7 @@ prepare pkg fork:
     version=$(grep '^version' {{pkg}}/typst.toml | sed 's/version = "\(.*\)"/\1/')
     dest="{{fork}}/packages/preview/ethz-iis-{{pkg}}/$version"
     echo "📦 Copying {{pkg}} v$version to $dest"
+    cd "{{fork}}" && git sparse-checkout add "packages/preview/ethz-iis-{{pkg}}" && cd -
     mkdir -p "$dest"
     rsync -rL --exclude='*.pdf' {{pkg}}/ "$dest/"
     cp LICENSES/Apache-2.0.txt "$dest/LICENSE"
