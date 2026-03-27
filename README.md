@@ -23,10 +23,10 @@ Typst templates for documents at the
 Once published, initialize any template with `typst init`:
 
 ```sh
-typst init @preview/ethz-iis-dissertation:0.1.0    # PhD dissertation
-typst init @preview/ethz-iis-thesis:0.1.0          # thesis report
-typst init @preview/ethz-iis-research-plan:0.1.0   # research plan
-typst init @preview/ethz-iis-assignment:0.1.0      # assignment sheet
+typst init @preview/ethz-iis-dissertation:1.0.0    # PhD dissertation
+typst init @preview/ethz-iis-thesis:1.0.0          # thesis report
+typst init @preview/ethz-iis-research-plan:1.0.0   # research plan
+typst init @preview/ethz-iis-assignment:1.0.0      # assignment sheet
 ```
 
 This copies a ready-to-compile example project into a new directory.
@@ -44,7 +44,7 @@ git clone https://github.com/pulp-platform/iis-typst
 
 # Initialize a project anywhere
 typst init --package-path /path/to/iis-typst/packages \
-    @preview/ethz-iis-dissertation:0.1.0 my-dissertation
+    @preview/ethz-iis-dissertation:1.0.0 my-dissertation
 
 # Compile
 cd my-dissertation

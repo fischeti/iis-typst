@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0, see LICENSE for details.
 // SPDX-License-Identifier: Apache-2.0
 
-#import "@preview/ethz-iis-dissertation:0.1.0": (
+#import "@preview/ethz-iis-dissertation:1.0.0": (
   acr, acrfull, acrpl, chapter-short,
 )
 

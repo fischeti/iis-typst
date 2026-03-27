@@ -4,7 +4,7 @@
 //
 // Author: Tim Fischer <fischeti@iis.ee.ethz.ch>
 
-#import "@preview/ethz-iis-assignment:0.1.0": *
+#import "@preview/ethz-iis-assignment:1.0.0": *
 
 #show: assignment.with(
   projecttype: "master",

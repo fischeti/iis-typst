@@ -10,13 +10,13 @@ Used for the initial research plan that PhD candidates at the
 Initialize a new project with:
 
 ```sh
-typst init @preview/ethz-iis-research-plan:0.1.0
+typst init @preview/ethz-iis-research-plan:1.0.0
 ```
 
 Or import directly:
 
 ```typst
-#import "@preview/ethz-iis-research-plan:0.1.0": research-plan
+#import "@preview/ethz-iis-research-plan:1.0.0": research-plan
 
 #show: research-plan.with(
   title: "Title of Your Research Plan",

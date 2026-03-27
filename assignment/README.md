@@ -10,13 +10,13 @@ Used for issuing student thesis and project assignments at the
 Initialize a new project with:
 
 ```sh
-typst init @preview/ethz-iis-assignment:0.1.0
+typst init @preview/ethz-iis-assignment:1.0.0
 ```
 
 Or import directly:
 
 ```typst
-#import "@preview/ethz-iis-assignment:0.1.0": assignment
+#import "@preview/ethz-iis-assignment:1.0.0": assignment
 
 #show: assignment.with(
   projecttype: "master",
