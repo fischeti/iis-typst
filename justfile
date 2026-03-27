@@ -53,9 +53,23 @@ init pkg dir="pkg":
 bump pkg level="patch":
     python3 scripts/bump.py {{pkg}} {{level}}
 
-# Prepare a package for submission to Typst Universe (replaces shared/ symlink with real copy, adds LICENSE)
-prepare pkg:
-    rm {{pkg}}/shared
-    cp -r shared {{pkg}}/shared
-    cp LICENSES/Apache-2.0.txt {{pkg}}/LICENSE
-    @echo "{{pkg}}/ is ready — submit as packages/preview/ethz-iis-{{pkg}}/0.1.0/"
+# Copy a package into a local fork of typst/packages, resolving symlinks in the process.
+# Usage: just prepare dissertation /path/to/typst-packages
+prepare pkg fork:
+    #!/usr/bin/env sh
+    set -e
+    version=$(grep '^version' {{pkg}}/typst.toml | sed 's/version = "\(.*\)"/\1/')
+    dest="{{fork}}/packages/preview/ethz-iis-{{pkg}}/$version"
+    echo "📦 Copying {{pkg}} v$version to $dest"
+    mkdir -p "$dest"
+    rsync -rL --exclude='*.pdf' {{pkg}}/ "$dest/"
+    cp LICENSES/Apache-2.0.txt "$dest/LICENSE"
+    echo "🔍 Running typst-package-check"
+    typst-package-check check "$dest"
+    echo "🏗️  Initialising template into temp directory"
+    tmp=$(mktemp -d)
+    typst init --package-path "{{fork}}/packages" "@preview/ethz-iis-{{pkg}}:$version" "$tmp/project"
+    echo "⚙️  Compiling"
+    typst compile --package-path "{{fork}}/packages" "$tmp/project/main.typ"
+    rm -rf "$tmp"
+    echo "✅ Done — commit and push in {{fork}}"
