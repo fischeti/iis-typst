@@ -43,7 +43,6 @@
   // Back matter
   bibliography: bibliography("references.bib", style: "ieee"),
   appendices: (
-    include "appendices/appendix.typ",
     include "appendices/chip_gallery.typ",
     typst-guide,
   ),
