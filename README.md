@@ -23,10 +23,10 @@ Typst templates for documents at the
 Once published, initialize any template with `typst init`:
 
 ```sh
-typst init @preview/ethz-iis-dissertation:1.0.0    # PhD dissertation
-typst init @preview/ethz-iis-thesis:1.0.0          # thesis report
-typst init @preview/ethz-iis-research-plan:1.0.0   # research plan
-typst init @preview/ethz-iis-assignment:1.0.0      # assignment sheet
+typst init @preview/ethz-iis-dissertation    # PhD dissertation
+typst init @preview/ethz-iis-thesis          # thesis report
+typst init @preview/ethz-iis-research-plan   # research plan
+typst init @preview/ethz-iis-assignment      # assignment sheet
 ```
 
 This copies a ready-to-compile example project into a new directory.

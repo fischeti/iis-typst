@@ -47,7 +47,7 @@ fmt:
 
 # Initialize a template locally (typst init equivalent)
 init pkg dir="pkg":
-    typst init --package-path packages @preview/ethz-iis-{{pkg}}:0.1.0 {{dir}}
+    typst init --package-path packages @preview/ethz-iis-{{pkg}} {{dir}}
 
 # Bump the version of a package (level: patch, minor, or major)
 bump pkg level="patch":

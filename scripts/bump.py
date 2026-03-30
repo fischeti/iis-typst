@@ -74,7 +74,7 @@ def main():
                 f.write(new_src)
             print(f"  {path}")
 
-    # Update version references in READMEs
+    # Update @preview import snippets in READMEs
     for readme_path in (f"{pkg}/README.md", "README.md"):
         if os.path.exists(readme_path):
             with open(readme_path) as f:
