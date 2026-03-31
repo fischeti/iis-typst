@@ -31,6 +31,11 @@ git checkout main
 
 This only needs to be done once per machine.
 
+> [!TIP]
+> Both `just bump` and `just release` support a `--dry-run` flag (short: `-n`)
+> that prints every command without making any changes — useful for a sanity check
+> before committing.
+
 ## Steps
 
 ### 1. Make and commit all changes
