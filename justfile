@@ -67,7 +67,7 @@ prepare pkg fork:
     echo "📦 Copying {{pkg}} v$version to $dest"
     cd "{{fork}}" && git sparse-checkout add "packages/preview/ethz-iis-{{pkg}}" && cd -
     mkdir -p "$dest"
-    rsync -rL --exclude='*.pdf' {{pkg}}/ "$dest/"
+    rsync -rL --exclude='*.pdf' --exclude='CHANGELOG.md' {{pkg}}/ "$dest/"
     cp LICENSES/Apache-2.0.txt "$dest/LICENSE"
     echo "🔍 Running typst-package-check"
     typst-package-check check "$dest"
