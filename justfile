@@ -62,9 +62,15 @@ fmt:
 init pkg dir="pkg":
     typst init @preview/ethz-iis-{{pkg}} {{dir}}
 
-# Bump the version of a package (level: patch, minor, major, or explicit x.y.z)
-bump pkg level="patch":
-    python3 scripts/bump.py {{pkg}} {{level}}
+# Bump the version of a package to an explicit x.y.z version
+bump pkg ver:
+    #!/usr/bin/env sh
+    set -e
+    old_ver=$(grep '^version' {{pkg}}/typst.toml | sed 's/version = "\(.*\)"/\1/')
+    sed -i.bak "s/version = \"$old_ver\"/version = \"{{ver}}\"/" {{pkg}}/typst.toml && rm {{pkg}}/typst.toml.bak
+    find {{pkg}}/template -name '*.typ' -exec sed -i.bak "s|ethz-iis-{{pkg}}:$old_ver|ethz-iis-{{pkg}}:{{ver}}|g" {} \; -exec rm {}.bak \;
+    [ -f {{pkg}}/README.md ] && sed -i.bak "s|ethz-iis-{{pkg}}:$old_ver|ethz-iis-{{pkg}}:{{ver}}|g" {{pkg}}/README.md && rm {{pkg}}/README.md.bak
+    echo "  {{pkg}}: $old_ver → {{ver}}"
 
 # Bump to the version in CHANGELOG, commit, tag, and push
 release pkg:
@@ -80,7 +86,6 @@ release pkg:
     fi
     echo "🚀 Releasing {{pkg}} v$new_ver"
     just bump {{pkg}} "$new_ver"
-    just link {{pkg}}
     git add {{pkg}}/
     git commit -m "{{pkg}}: release v$new_ver"
     git tag "{{pkg}}/v$new_ver"

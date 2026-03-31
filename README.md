@@ -36,7 +36,7 @@ Clone the repository. A [`justfile`](justfile) provides all common recipes:
 just link <pkg>                     # install a package under @local/ethz-iis-*
 just compile <pkg>                  # compile a template
 just fmt                            # format all .typ files
-just bump <pkg>                     # bump patch version of a package
+just release <pkg>                  # bump version from CHANGELOG, tag, and push
 just prepare <pkg> /path/to/fork    # copy to typst/packages fork for submission
 ```
 
