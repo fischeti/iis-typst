@@ -66,31 +66,6 @@ Shared utilities (`utils.typ`) and ETH brand assets (`figures/`) live in
 dereferences symlinks and rewrites `@local/` → `@preview/` imports when
 copying to the Typst Universe fork.
 
-## Acronyms
-
-Define acronyms in a separate file and pass them to the template:
-
-```typst
-#let acronyms = (
-  "IC":  ("Integrated Circuit",),
-  "SoC": (
-    short: "SoC", long: "System-on-Chip",
-    short-pl: "SoCs", long-pl: "Systems-on-Chip",
-  ),
-)
-```
-
-Use them in text with `#acr("IC")`, `#acrpl("SoC")`, or `#acrfull("IC")`.
-
-## Including PDFs
-
-Use `include-pdf` (re-exported from each template) to embed scanned documents
-such as the signed declaration of originality:
-
-```typst
-declaration-of-originality: include-pdf("figures/declaration.pdf"),
-```
-
 ## Third-Party Assets
 
 The ETH Zürich logo (`shared/figures/eth_logo_kurz_pos.svg`) is a trademark of
