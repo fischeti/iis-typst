@@ -10,9 +10,23 @@ packages := "dissertation thesis research-plan assignment"
 default:
     @just --list
 
+# Install a single package into the @local Typst namespace
+link pkg:
+    #!/usr/bin/env sh
+    version=$(grep '^version' {{pkg}}/typst.toml | sed 's/version = "\(.*\)"/\1/')
+    pkg_root=$(typst info --format json | jq -r '.packages["package-path"]')
+    dest="$pkg_root/local/ethz-iis-{{pkg}}/$version"
+    mkdir -p "$(dirname "$dest")"
+    ln -sfn "$(pwd)/{{pkg}}" "$dest"
+    echo "🔗 @local/ethz-iis-{{pkg}}:$version → $(pwd)/{{pkg}}"
+
+# Install all packages into the @local Typst namespace
+link-all:
+    @for pkg in {{packages}}; do just link $pkg; done
+
 # Compile a single template
 compile pkg:
-    typst compile --package-path packages {{pkg}}/template/main.typ
+    typst compile {{pkg}}/template/main.typ
 
 # Compile all templates
 compile-all:
@@ -21,7 +35,6 @@ compile-all:
 # Generate thumbnail for a single template
 thumbnail pkg:
     typst compile -f png --pages 1 --ppi 250 \
-        --package-path packages \
         {{pkg}}/template/main.typ \
         {{pkg}}/thumbnail.png
 
@@ -47,7 +60,7 @@ fmt:
 
 # Initialize a template locally (typst init equivalent)
 init pkg dir="pkg":
-    typst init --package-path packages @preview/ethz-iis-{{pkg}} {{dir}}
+    typst init @preview/ethz-iis-{{pkg}} {{dir}}
 
 # Bump the version of a package (level: patch, minor, or major)
 bump pkg level="patch":
