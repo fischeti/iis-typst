@@ -85,18 +85,7 @@ def main():
                     f.write(new_src)
                 print(f"  {readme_path}")
 
-    # Replace old version symlink in packages/preview/ with new one
-    pkg_dir = f"packages/preview/ethz-iis-{pkg}"
-    old_link = f"{pkg_dir}/{old_ver}"
-    new_link = f"{pkg_dir}/{new_ver}"
-    os.makedirs(pkg_dir, exist_ok=True)
-    if os.path.islink(old_link):
-        os.remove(old_link)
-        print(f"  removed {old_link}")
-    os.symlink(f"../../../{pkg}", new_link)
-    print(f"  created {new_link}")
-
-    print(f"\n{pkg}: {old_ver} → {new_ver}")
+    print(f"\n{pkg}: {old_ver} → {new_ver} (run 'just link {pkg}' to update the local symlink)")
 
 
 if __name__ == "__main__":

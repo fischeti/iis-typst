@@ -29,9 +29,16 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - uses: typst-community/setup-typst@v5
+      - uses: extractions/setup-just@v3
+
+      - name: Install packages locally
+        run: just link ${{ matrix.package }}
+
+      - name: Use local package in template
+        run: sed -i 's|@preview/ethz-iis-|@local/ethz-iis-|g' ${{ matrix.package }}/template/main.typ
 
       - name: Compile template
-        run: typst compile --package-path packages ${{ matrix.package }}/template/main.typ
+        run: just compile ${{ matrix.package }}
 
   format:
     name: Format check

@@ -26,36 +26,31 @@ typst init @preview/ethz-iis-research-plan   # research plan
 typst init @preview/ethz-iis-assignment      # assignment sheet
 ```
 
-This copies a ready-to-compile example project into a new directory.
-Alternatively, search for **ethz-iis** in the [Typst Universe](https://typst.app/universe)
-and start the template from there.
+## Development
 
-### Local Development (from this repo)
-
-Clone the repository, then pass `--package-path /path/to/iis-typst/packages`
-from anywhere so that Typst resolves `@preview/ethz-iis-*` against the local
-package directories:
+Clone the repository and run `just link-all` to install the packages into
+Typst's `@local` namespace. Then change `@preview/` to `@local/` in the
+template `main.typ` to pick up local changes on every compile.
 
 ```sh
 git clone https://github.com/pulp-platform/iis-typst
-
-# Initialize a project anywhere
-typst init --package-path /path/to/iis-typst/packages \
-    @preview/ethz-iis-dissertation:1.0.0 my-dissertation
-
-# Compile
-cd my-dissertation
-typst compile --package-path /path/to/iis-typst/packages main.typ
+cd iis-typst
+just link-all   # installs packages under @local/ethz-iis-*
+# in template/main.typ: change @preview/ethz-iis-* to @local/ethz-iis-*
+just compile-all
 ```
 
-The `packages/preview/` directory contains symlinks that point to the package
-subdirectories in this repo, so any local change to a template is reflected
-immediately on the next compile.
+A [`justfile`](justfile) provides convenience recipes:
 
-## Contributing / Modifying Templates
+```sh
+just link-all                              # install all packages under @local/ethz-iis-*
+just compile-all                           # compile all four templates
+just fmt                                   # format all .typ files
+just bump dissertation                     # bump patch version of a package
+just prepare dissertation /path/to/fork   # copy to typst/packages fork for submission
+```
 
-Each template lives in its own subdirectory (`dissertation/`, `thesis/`, etc.)
-and is an independent Typst package:
+Each template lives in its own subdirectory and is an independent Typst package:
 
 ```
 <package>/
@@ -67,13 +62,9 @@ and is an independent Typst package:
 ```
 
 Shared utilities (`utils.typ`) and ETH brand assets (`figures/`) live in
-`shared/` and are symlinked into each package. Before submitting a package
-to Typst Universe, replace the symlink with a real copy:
-
-```sh
-cd dissertation
-rm shared && cp -r ../shared .
-```
+`shared/` and are symlinked into each package. The `just prepare` recipe
+dereferences symlinks and rewrites `@local/` → `@preview/` imports when
+copying to the Typst Universe fork.
 
 ## Acronyms
 
