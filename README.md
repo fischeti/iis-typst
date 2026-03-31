@@ -28,26 +28,28 @@ typst init @preview/ethz-iis-assignment      # assignment sheet
 
 ## Development
 
-Clone the repository and run `just link-all` to install the packages into
-Typst's `@local` namespace. Then change `@preview/` to `@local/` in the
-template `main.typ` to pick up local changes on every compile.
+Clone the repository. A [`justfile`](justfile) provides all common recipes:
+
+```sh
+just link <pkg>                     # install a package under @local/ethz-iis-*
+just compile <pkg>                  # compile a template
+just fmt                            # format all .typ files
+just bump <pkg>                     # bump patch version of a package
+just prepare <pkg> /path/to/fork    # copy to typst/packages fork for submission
+```
+
+Most recipes have a `-all` variant (e.g. `just compile-all`). Run `just` to list all available recipes.
+
+Run `just link <pkg>` once after cloning to install packages into Typst's `@local`
+namespace. Then change `@preview/` to `@local/` in a template's `main.typ` to
+pick up local changes on every compile:
 
 ```sh
 git clone https://github.com/pulp-platform/iis-typst
 cd iis-typst
-just link-all   # installs packages under @local/ethz-iis-*
+just link <pkg>
 # in template/main.typ: change @preview/ethz-iis-* to @local/ethz-iis-*
-just compile-all
-```
-
-A [`justfile`](justfile) provides convenience recipes:
-
-```sh
-just link-all                              # install all packages under @local/ethz-iis-*
-just compile-all                           # compile all four templates
-just fmt                                   # format all .typ files
-just bump dissertation                     # bump patch version of a package
-just prepare dissertation /path/to/fork   # copy to typst/packages fork for submission
+just compile <pkg>
 ```
 
 Each template lives in its own subdirectory and is an independent Typst package:
