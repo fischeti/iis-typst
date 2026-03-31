@@ -58,39 +58,45 @@ fmt-check:
 fmt:
     typstyle -i **/*.typ
 
-# Initialize a template locally (typst init equivalent)
-init pkg dir="pkg":
-    typst init @preview/ethz-iis-{{pkg}} {{dir}}
 
-# Bump the version of a package to an explicit x.y.z version
-bump pkg ver:
-    #!/usr/bin/env sh
-    set -e
-    old_ver=$(grep '^version' {{pkg}}/typst.toml | sed 's/version = "\(.*\)"/\1/')
-    sed -i.bak "s/version = \"$old_ver\"/version = \"{{ver}}\"/" {{pkg}}/typst.toml && rm {{pkg}}/typst.toml.bak
-    find {{pkg}}/template -name '*.typ' -exec sed -i.bak "s|ethz-iis-{{pkg}}:$old_ver|ethz-iis-{{pkg}}:{{ver}}|g" {} \; -exec rm {}.bak \;
-    [ -f {{pkg}}/README.md ] && sed -i.bak "s|ethz-iis-{{pkg}}:$old_ver|ethz-iis-{{pkg}}:{{ver}}|g" {{pkg}}/README.md && rm {{pkg}}/README.md.bak
-    echo "  {{pkg}}: $old_ver → {{ver}}"
-
-# Bump to the version in CHANGELOG, commit, tag, and push
-release pkg:
+# Bump version — updates typst.toml and import strings, commits, and pushes
+[arg('ver_type', pattern='major|minor|patch')]
+bump pkg ver_type:
     #!/usr/bin/env sh
     set -e
     current=$(grep '^version' {{pkg}}/typst.toml | sed 's/version = "\(.*\)"/\1/')
-    new_ver=$(grep -m1 '^## v' {{pkg}}/CHANGELOG.md | sed 's/## v\([0-9.]*\).*/\1/')
-    if [ -z "$new_ver" ]; then
-        echo "❌ No versioned entry found in {{pkg}}/CHANGELOG.md" && exit 1
-    fi
-    if [ "$new_ver" = "$current" ]; then
-        echo "❌ CHANGELOG version ($new_ver) matches current version — update the changelog first" && exit 1
-    fi
-    echo "🚀 Releasing {{pkg}} v$new_ver"
-    just bump {{pkg}} "$new_ver"
+    major=$(echo "$current" | cut -d. -f1)
+    minor=$(echo "$current" | cut -d. -f2)
+    patch=$(echo "$current" | cut -d. -f3)
+    case "{{ver_type}}" in
+        major) major=$((major + 1)); minor=0; patch=0 ;;
+        minor) minor=$((minor + 1)); patch=0 ;;
+        patch) patch=$((patch + 1)) ;;
+    esac
+    new_ver="$major.$minor.$patch"
+    echo "🔖 Bumping {{pkg}} $current → $new_ver"
+    sed -i.bak "s/version = \"$current\"/version = \"$new_ver\"/" {{pkg}}/typst.toml && rm {{pkg}}/typst.toml.bak
+    find {{pkg}}/template -name '*.typ' -exec sed -i.bak "s|ethz-iis-{{pkg}}:$current|ethz-iis-{{pkg}}:$new_ver|g" {} \; -exec rm {}.bak \;
+    [ -f {{pkg}}/README.md ] && sed -i.bak "s|ethz-iis-{{pkg}}:$current|ethz-iis-{{pkg}}:$new_ver|g" {{pkg}}/README.md && rm {{pkg}}/README.md.bak
     git add {{pkg}}/
-    git commit -m "{{pkg}}: release v$new_ver"
-    git tag "{{pkg}}/v$new_ver"
+    git commit -m "{{pkg}}: bump to v$new_ver"
+    git push
+    echo "✅ Bumped — run 'just prepare {{pkg}} <fork>' then 'just release {{pkg}}' after PR is accepted"
+
+# Stamp CHANGELOG, tag, and push — run after the Typst Universe PR is accepted
+release pkg:
+    #!/usr/bin/env sh
+    set -e
+    ver=$(grep '^version' {{pkg}}/typst.toml | sed 's/version = "\(.*\)"/\1/')
+    rel_date=$(date +%Y-%m-%d)
+    echo "📝 Stamping CHANGELOG for {{pkg}} v$ver"
+    sed -i.bak -E "s/## (\[Unreleased\]|Unreleased)/## v$ver — $rel_date/" {{pkg}}/CHANGELOG.md && rm {{pkg}}/CHANGELOG.md.bak
+    git add {{pkg}}/CHANGELOG.md
+    git commit -m "{{pkg}}: release v$ver"
+    echo "🚀 Tagging {{pkg}} v$ver"
+    git tag "{{pkg}}/v$ver"
     git push --follow-tags
-    echo "✅ {{pkg}} v$new_ver released"
+    echo "✅ {{pkg}} v$ver released"
 
 # Copy all packages into a local fork of typst/packages
 prepare-all fork:

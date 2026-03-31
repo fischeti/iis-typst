@@ -39,15 +39,16 @@ Ensure the `main` branch is clean and CI passes before starting a release.
 
 ### 2. Update the changelog
 
-Add a new versioned entry to `<pkg>/CHANGELOG.md`, moving items from
-`[Unreleased]` into a dated section:
+Add your changes to the `[Unreleased]` section in `<pkg>/CHANGELOG.md`:
 
 ```md
-## v1.1.0 — 2026-04-01
+## [Unreleased]
 
 ### Added
 - ...
 ```
+
+The version number and date are filled in automatically by `just release`.
 
 ### 3. Regenerate the thumbnail (optional)
 
@@ -57,20 +58,17 @@ Only needed if the first page of the template has changed visually.
 just thumbnail <pkg>
 ```
 
-### 4. Release
+### 4. Bump the version
 
 ```sh
-just release <pkg>
+just bump <pkg> minor   # or major / patch
 ```
 
-This reads the new version from the top of `<pkg>/CHANGELOG.md`, aborts if it
-matches the current version (i.e. the changelog wasn't updated), then bumps
-`typst.toml` and all import strings, commits, tags `<pkg>/v<version>`, and pushes.
+This computes the new version by incrementing the chosen component, updates
+`typst.toml` and all import strings, commits with message `<pkg>: bump to v<version>`,
+and pushes to `main`. The CHANGELOG is not touched at this point.
 
-Per-package tags (e.g. `thesis/v1.1.0`) keep the history clean when packages
-are released independently.
-
-### 6. Prepare and submit to Typst Universe
+### 5. Prepare and submit to Typst Universe
 
 ```sh
 just prepare <pkg> /path/to/typst-packages
@@ -88,4 +86,17 @@ git push
 ```
 
 Follow the [Typst Universe submission guidelines](https://github.com/typst/packages/tree/main/docs#package-submission-guidelines)
-for the PR description.
+for the PR description. **Wait for the PR to be accepted before continuing.**
+
+### 6. Tag the release
+
+Once the Typst Universe PR is accepted, stamp the changelog and tag:
+
+```sh
+just release <pkg>
+```
+
+This replaces `## [Unreleased]` in `<pkg>/CHANGELOG.md` with the current version
+and today's date, commits, tags `<pkg>/v<version>` (e.g. `thesis/v1.1.0`), and
+pushes the commit and tag together. Per-package tags keep the history clean when
+packages are released independently.
