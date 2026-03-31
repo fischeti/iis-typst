@@ -7,20 +7,17 @@ Typst templates for documents at the
 
 | Package | Description | Audience |
 |---|---|---|
-| [`@preview/ethz-iis-dissertation`](dissertation/) | PhD dissertation | PhD students |
-| [`@preview/ethz-iis-thesis`](thesis/) | Master / Bachelor / Semester thesis report | Students |
-| [`@preview/ethz-iis-research-plan`](research-plan/) | PhD research plan (first-year report) | PhD students |
-| [`@preview/ethz-iis-assignment`](assignment/) | Thesis assignment sheet | Advisors |
-
-> [!NOTE]
-> These packages are pending publication on [Typst Universe](https://typst.app/universe).
-> Until then, use the local development workflow described below.
+| [`ethz-iis-dissertation`](https://typst.app/universe/package/ethz-iis-dissertation) | PhD dissertation | PhD students |
+| [`ethz-iis-thesis`](https://typst.app/universe/package/ethz-iis-thesis) | Master / Bachelor / Semester thesis report | Students |
+| [`ethz-iis-research-plan`](https://typst.app/universe/package/ethz-iis-research-plan) | PhD research plan (first-year report) | PhD students |
+| [`ethz-iis-assignment`](https://typst.app/universe/package/ethz-iis-assignment) | Thesis assignment sheet | Advisors |
 
 ## Getting Started
 
-### From Typst Universe
+The easiest way is to open the template on [Typst Universe](https://typst.app/universe)
+and click **Start from template** to create a new project in the Typst web app directly.
 
-Once published, initialize any template with `typst init`:
+Alternatively, initialize a local project from the command line with `typst init`:
 
 ```sh
 typst init @preview/ethz-iis-dissertation    # PhD dissertation
