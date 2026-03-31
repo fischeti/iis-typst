@@ -14,8 +14,10 @@ Typst templates for documents at the
 
 ## Getting Started
 
-The easiest way is to open the template on [Typst Universe](https://typst.app/universe)
-and click **Start from template** to create a new project in the Typst web app directly.
+> [!TIP]
+> The easiest way is to click one of the links above or search for `ethz-iis` on
+> [Typst Universe](https://typst.app/universe) and click **Start from template** to
+> create a new project in the Typst web app directly.
 
 Alternatively, initialize a local project from the command line with `typst init`:
 
@@ -38,7 +40,8 @@ just bump <pkg>                     # bump patch version of a package
 just prepare <pkg> /path/to/fork    # copy to typst/packages fork for submission
 ```
 
-Most recipes have a `-all` variant (e.g. `just compile-all`). Run `just` to list all available recipes.
+> [!NOTE]
+> Most recipes have a `-all` variant (e.g. `just compile-all`). Run `just` to list all available recipes.
 
 Run `just link <pkg>` once after cloning to install packages into Typst's `@local`
 namespace. Then change `@preview/` to `@local/` in a template's `main.typ` to
@@ -68,13 +71,12 @@ Shared utilities (`utils.typ`) and ETH brand assets (`figures/`) live in
 dereferences symlinks and rewrites `@local/` → `@preview/` imports when
 copying to the Typst Universe fork.
 
-## Third-Party Assets
-
-The ETH Zürich logo (`shared/figures/eth_logo_kurz_pos.svg`) is a trademark of
-ETH Zürich and is **not** covered by the Apache-2.0 license. It is reproduced as
-publicly available on [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:ETH_Z%C3%BCrich_Logo_black.svg).
-Users must comply with [ETH Zürich's branding guidelines](https://ethz.ch/staffnet/en/service/communication/corporate-design/eth-logo.html).
-
 ## License
 
 Apache-2.0 — see [LICENSE](LICENSE).
+
+> [!WARNING]
+> The ETH Zürich logo (`shared/figures/eth_logo_kurz_pos.svg`) is a trademark of
+> ETH Zürich and is **not** covered by the Apache-2.0 license. It is reproduced as
+> publicly available on [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:ETH_Z%C3%BCrich_Logo_black.svg).
+> Users must comply with [ETH Zürich's branding guidelines](https://ethz.ch/staffnet/en/service/communication/corporate-design/eth-logo.html).
