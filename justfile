@@ -62,9 +62,30 @@ fmt:
 init pkg dir="pkg":
     typst init @preview/ethz-iis-{{pkg}} {{dir}}
 
-# Bump the version of a package (level: patch, minor, or major)
+# Bump the version of a package (level: patch, minor, major, or explicit x.y.z)
 bump pkg level="patch":
     python3 scripts/bump.py {{pkg}} {{level}}
+
+# Bump to the version in CHANGELOG, commit, tag, and push
+release pkg:
+    #!/usr/bin/env sh
+    set -e
+    current=$(grep '^version' {{pkg}}/typst.toml | sed 's/version = "\(.*\)"/\1/')
+    new_ver=$(grep -m1 '^## v' {{pkg}}/CHANGELOG.md | sed 's/## v\([0-9.]*\).*/\1/')
+    if [ -z "$new_ver" ]; then
+        echo "❌ No versioned entry found in {{pkg}}/CHANGELOG.md" && exit 1
+    fi
+    if [ "$new_ver" = "$current" ]; then
+        echo "❌ CHANGELOG version ($new_ver) matches current version — update the changelog first" && exit 1
+    fi
+    echo "🚀 Releasing {{pkg}} v$new_ver"
+    just bump {{pkg}} "$new_ver"
+    just link {{pkg}}
+    git add {{pkg}}/
+    git commit -m "{{pkg}}: release v$new_ver"
+    git tag "{{pkg}}/v$new_ver"
+    git push --follow-tags
+    echo "✅ {{pkg}} v$new_ver released"
 
 # Copy all packages into a local fork of typst/packages
 prepare-all fork:
@@ -78,7 +99,6 @@ prepare pkg fork:
     version=$(grep '^version' {{pkg}}/typst.toml | sed 's/version = "\(.*\)"/\1/')
     dest="{{fork}}/packages/preview/ethz-iis-{{pkg}}/$version"
     echo "📦 Copying {{pkg}} v$version to $dest"
-    cd "{{fork}}" && git sparse-checkout add "packages/preview/ethz-iis-{{pkg}}" && cd -
     mkdir -p "$dest"
     rsync -rL --exclude='*.pdf' --exclude='CHANGELOG.md' {{pkg}}/ "$dest/"
     cp LICENSES/Apache-2.0.txt "$dest/LICENSE"

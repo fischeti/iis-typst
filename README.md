@@ -55,6 +55,8 @@ just link <pkg>
 just compile <pkg>
 ```
 
+See [RELEASING.md](RELEASING.md) for the full release and publishing workflow.
+
 Each template lives in its own subdirectory and is an independent Typst package:
 
 ```

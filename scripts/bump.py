@@ -6,11 +6,12 @@
 # Bump the version of a package and update all dependent references.
 #
 # Usage:
-#   python3 scripts/bump.py <package> [patch|minor|major]
+#   python3 scripts/bump.py <package> [patch|minor|major|x.y.z]
 #
 # Examples:
 #   python3 scripts/bump.py dissertation
 #   python3 scripts/bump.py thesis minor
+#   python3 scripts/bump.py thesis 1.2.0
 
 import re
 import glob
@@ -35,8 +36,9 @@ def main():
     pkg = sys.argv[1]
     level = sys.argv[2] if len(sys.argv) > 2 else "patch"
 
-    if level not in ("patch", "minor", "major"):
-        print(f"error: level must be patch, minor, or major (got '{level}')", file=sys.stderr)
+    explicit = re.fullmatch(r'\d+\.\d+\.\d+', level)
+    if not explicit and level not in ("patch", "minor", "major"):
+        print(f"error: level must be patch, minor, major, or x.y.z (got '{level}')", file=sys.stderr)
         sys.exit(1)
 
     toml_path = f"{pkg}/typst.toml"
@@ -53,7 +55,10 @@ def main():
         sys.exit(1)
 
     old_ver = f"{m.group(1)}.{m.group(2)}.{m.group(3)}"
-    new_ver = "{}.{}.{}".format(*bump_version(int(m.group(1)), int(m.group(2)), int(m.group(3)), level))
+    if explicit:
+        new_ver = level
+    else:
+        new_ver = "{}.{}.{}".format(*bump_version(int(m.group(1)), int(m.group(2)), int(m.group(3)), level))
 
     # Update typst.toml
     with open(toml_path, "w") as f:
